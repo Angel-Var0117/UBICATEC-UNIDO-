@@ -87,6 +87,7 @@
             max-height: 85vh;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            box-sizing: border-box;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             position: relative;
         }
@@ -619,7 +620,7 @@
     let elementoQueAbrio = null;
 
     function inyectar() {
-        const fabs = document.querySelector('.ub-gmaps-fabs'); if (fabs) { fabs.insertBefore(btn, fabs.firstChild); btn.style.position = 'relative'; btn.style.width = '42px'; btn.style.height = '42px'; btn.style.margin = '5px 0'; } else { document.body.appendChild(btn); btn.style.position = 'absolute'; btn.style.top = '20px'; btn.style.left = '15px'; }
+        const fabs = document.querySelector('.ub-gmaps-fabs'); if (fabs) { fabs.insertBefore(btn, fabs.firstChild); btn.style.position = 'relative'; btn.style.width = '42px'; btn.style.height = '42px'; btn.style.margin = '5px 0'; } else { document.body.appendChild(btn); btn.style.position = 'absolute'; btn.style.top = '85px'; btn.style.left = '15px'; }
         document.body.appendChild(overlay);
         document.querySelector('#panelInfoAccesibilidad .info-acc-grid').appendChild(edificiosRenderizados.lista);
 
