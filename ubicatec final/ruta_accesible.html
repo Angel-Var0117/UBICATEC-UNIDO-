@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Accesible - UBICATEC</title>
+    <meta name="theme-color" content="#000000">
+
+    <!-- Bootstrap CSS -->
+    <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Google Fonts (Lato — UBICATEC Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+
+    <style>
+        /* ====== UBICATEC Design System — Ruta Accesible ====== */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700;800;900&display=swap');
+
+        :root {
+            --ub-navy-deep: #042962;
+            --ub-navy-mid: #0c3872;
+            --ub-navy-light: #1d2e8f;
+            --ub-accent-cyan: #50e2c1;
+            --ub-accent-purple: #8f12fd;
+            --ub-bg: #f6f7fb;
+            --ub-white: #ffffff;
+            --ub-text-primary: #2c3e50;
+            --ub-text-secondary: #6c757d;
+            --ub-border: rgba(255,255,255,0.08);
+            --ub-glass-shadow: 0 10px 24px rgba(0,0,0,0.18);
+            --ub-radius: 16px;
+            --ub-radius-sm: 12px;
+            --ub-green-accent: #5fcf80;
+            --ub-blue-accent: #3498db;
+            --ub-orange-accent: #e67e22;
+            --ub-red-accent: #e74c3c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--ub-bg);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ====== HEADER — Glassmorphism Dark ====== */
+        #header {
+            background-color: #000;
+            background-image:
+                radial-gradient(circle at 7% 9%, #000 2.39%, transparent 43.9%),
+                radial-gradient(circle at -2% 103%, #50e2c1 3%, transparent 26.7%),
+                radial-gradient(circle at 33% 82%, rgba(0,255,255,0.46) 2.39%, transparent 32%),
+                radial-gradient(circle at 37% 81%, rgba(8,62,125,0.58) 4.4%, transparent 37.2%),
+                radial-gradient(circle at 54% 99%, rgba(143,18,253,0.31) 3%, transparent 32.5%),
+                radial-gradient(circle at 104% 43%, rgba(97,0,255,0.15) 6%, transparent 42.5%);
+            background-blend-mode: normal;
+            background-size: cover;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: var(--ub-glass-shadow);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 800;
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .logo h1 a {
+            color: #ffffff;
+            text-decoration: none;
+            text-shadow: 0 0 20px rgba(80,226,193,0.4);
+        }
+
+        .btn-back {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.9);
+            padding: 8px 16px;
+            border-radius: var(--ub-radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-back:hover {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ====== LAYOUT ====== */
+        #main-container {
+            display: flex;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ====== SIDEBAR — Glass Dark ====== */
+        #sidebar {
+            width: 380px;
+            background: linear-gradient(180deg, #101636 0%, #0d1230 100%);
+            box-shadow: 2px 0 20px rgba(0,0,0,0.3);
+            z-index: 1020;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.08);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.15) transparent;
+        }
+
+        #sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.15);
+            border-radius: 3px;
+        }
+
+        /* ====== MAP ====== */
+        #map-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ====== ROUTE INFO ====== */
+        .route-info {
+            padding: 22px;
+        }
+
+        .route-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .route-header h2 {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .route-details {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--ub-radius-sm);
+            padding: 16px;
+            margin-bottom: 22px;
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: rgba(255,255,255,0.55);
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-weight: 700;
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* ====== STEPS ====== */
+        .steps-container {
+            margin-top: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            margin-bottom: 16px;
+            position: relative;
+            padding: 10px;
+            border-radius: var(--ub-radius-sm);
+            transition: all 0.3s cubic-bezier(.4,0,.2,1);
+        }
+
+        .step-item:hover {
+            background: rgba(255,255,255,0.04);
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--ub-navy-mid) 0%, var(--ub-navy-deep) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            margin-right: 14px;
+            flex-shrink: 0;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(4,41,98,0.4);
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+
+        .step-line {
+            position: absolute;
+            left: 25px;
+            top: 42px;
+            bottom: -6px;
+            width: 2px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+            z-index: 1;
+        }
+
+        .step-item:last-child .step-line {
+            display: none;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: rgba(255,255,255,0.92);
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ====== TAGS ====== */
+        .step-status-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-current {
+            background: linear-gradient(135deg, var(--ub-blue-accent) 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(52,152,219,0.4);
+        }
+
+        .tag-next {
+            background: linear-gradient(135deg, var(--ub-orange-accent) 0%, #d35400 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(230,126,34,0.4);
+        }
+
+        .tag-past {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ====== ACCESSIBILITY ALERT ====== */
+        .accessibility-alert {
+            background: rgba(80,226,193,0.1);
+            border: 1px solid rgba(80,226,193,0.25);
+            color: rgba(255,255,255,0.85);
+            padding: 12px 14px;
+            border-radius: var(--ub-radius-sm);
+            margin-bottom: 16px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        /* ====== LOADING ====== */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #101636 0%, #0d1230 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            gap: 16px;
+        }
+
+        .loading-overlay p {
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: var(--ub-accent-cyan);
+        }
+
+        /* ====== DIRECTION MARKER ====== */
+        .direction-icon {
+            font-size: 16px;
+            margin-left: auto;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ====== USER MARKER (Waze-style) ====== */
+        .user-marker-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-marker-arrow {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--ub-blue-accent) 0%, #2980b9 100%);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 14px rgba(52,152,219,0.5), 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            #main-container {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                height: 42%;
+                order: 2;
+                border-right: none;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+
+            #map-container {
+                height: 58%;
+                order: 1;
+            }
+
+            #header {
+                padding: 10px 14px;
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            .btn-back {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* ====== SECTION TITLE in sidebar ====== */
+        .route-info h3 {
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 800;
+        }
+
+        /* ====== SMOOTH TRANSITIONS ====== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Loading Overlay -->
+    <div id="loading" class="loading-overlay">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-3">Calculando ruta accesible...</p>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <h1><a href="index.html">UBICATEC</a></h1>
+        </div>
+        <a href="#" id="btnRegresar" class="btn-back">
+            <span>←</span> Regresar al mapa
+        </a>
+    </header>
+
+    <!-- Main Container -->
+    <div id="main-container">
+        <!-- Sidebar with info -->
+        <div id="sidebar">
+            <div class="route-info">
+                <div class="route-header">
+                    <h2>Ruta Accesible</h2>
+                    <div class="accessibility-alert">
+                        <div>Esta ruta evita escaleras y obstáculos para facilitar el acceso.</div>
+                    </div>
+                </div>
+
+                <div class="route-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Destino:</span>
+                        <span class="detail-value" id="infoDestino">Cargando...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Origen:</span>
+                        <span class="detail-value" id="infoOrigen">Cargando...</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Distancia:</span>
+                        <span class="detail-value" id="infoDistancia">-- m</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tiempo est.:</span>
+                        <span class="detail-value" id="infoTiempo">-- min</span>
+                    </div>
+                </div>
+
+                <h3>Pasos a seguir</h3>
+                <div id="stepsList" class="steps-container">
+                    <!-- Steps will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Map -->
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Scripts -->
+    <!-- Important: Load mapa-accesible.js to get the graph data -->
+    <script src="js/mapa-accesible.js?v=3"></script>
+    <script src="js/modulo-rutas-voz.js?v=3"></script>
+
+    <script>
+        // Global variables
+        let mapa;
+        let rutaCalculada = null;
+        let edificioDestino = null;
+        let puntoOrigen = null;
+        let marcadorUsuario = null;
+        let indiceNodoActual = 0;
+        const UMBRAL_LLEGADA = 10; // metros
+        let rutaNodosObjects = []; // Almacenará los objetos de nodo de la ruta
+        let watchId = null;
+        let simulacionInterval = null;
+        let audioContextNotificacion = null;
+        const UBICATEC_VOZ_STORAGE_KEY = 'ubicatecVozActivo';
+
+        const iconoUsuario = L.divIcon({
+            className: 'user-marker-container',
+            html: '<div class="user-marker-arrow"><i class="fas fa-location-arrow" style="transform: rotate(-45deg);"></i></div>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15]
+        });
+
+        function obtenerAudioContextNotificacion() {
+            if (audioContextNotificacion) {
+                return audioContextNotificacion;
+            }
+
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContextClass) {
+                return null;
+            }
+
+            try {
+                audioContextNotificacion = new AudioContextClass();
+
+                if (window.UbicatecVoz && typeof window.UbicatecVoz.registrarAudioContext === 'function') {
+                    window.UbicatecVoz.registrarAudioContext(audioContextNotificacion);
+                }
+            } catch (error) {
+                console.warn('No se pudo crear AudioContext:', error);
+                audioContextNotificacion = null;
+            }
+
+            return audioContextNotificacion;
+        }
+
+        function inicializarAsistenteVozSiActivo() {
+            let vozActiva = false;
+
+            try {
+                vozActiva = localStorage.getItem(UBICATEC_VOZ_STORAGE_KEY) === 'true';
+            } catch (error) {
+                console.warn('No se pudo leer ubicatecVozActivo desde localStorage:', error);
+                return;
+            }
+
+            if (!vozActiva) {
+                return;
+            }
+
+            if (!window.UbicatecVoz) {
+                console.warn('UbicatecVoz no esta disponible en esta pagina.');
+                return;
+            }
+
+            // Alias de compatibilidad: init -> inicializar.
+            if (typeof window.UbicatecVoz.init !== 'function' && typeof window.UbicatecVoz.inicializar === 'function') {
+                window.UbicatecVoz.init = window.UbicatecVoz.inicializar;
+            }
+
+            if (typeof window.UbicatecVoz.init === 'function') {
+                window.UbicatecVoz.init({
+                    lang: 'es-MX',
+                    estrategiaAudio: 'duck',
+                    controlarWebAudio: true
+                });
+            }
+
+            const ctx = obtenerAudioContextNotificacion();
+            if (ctx && typeof window.UbicatecVoz.registrarAudioContext === 'function') {
+                window.UbicatecVoz.registrarAudioContext(ctx);
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicializar mapa
+            inicializarMapa();
+            // FIX BUG 5: Auto-activar voz si modo accesibilidad está activo
+            try {
+                if (localStorage.getItem('ubicatecModoAccesibilidad') === 'true') {
+                    localStorage.setItem(UBICATEC_VOZ_STORAGE_KEY, 'true');
+                }
+            } catch (e) {}
+            inicializarAsistenteVozSiActivo();
+
+            // Procesar parámetros URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const destinoId = urlParams.get('destino');
+            const origenId = urlParams.get('origen');
+            const origenTipo = urlParams.get('origenTipo'); // 'gps' o 'seleccion'
+            const coordsOrigen = urlParams.get('coords'); // 'lat,lng'
+
+            // Configurar botón regresar
+            const btnRegresar = document.getElementById('btnRegresar');
+            btnRegresar.href = destinoId ? `edificio.html?id=${destinoId}` : 'index.html';
+
+            console.log('📍 Parámetros:', { destinoId, origenId, origenTipo, coordsOrigen });
+
+            if (destinoId) {
+                cargarRuta(destinoId, origenId, coordsOrigen).then(function (exitoso) {
+                    // FIX BUG 1: Iniciar GPS DESPUÉS de que la ruta esté cargada
+                    if (exitoso) {
+                        iniciarSeguimientoGPS();
+                    }
+
+                    function mostrarIndicadorSimulacion() {
+                        if (document.getElementById('indSimulacion')) return;
+                        const divSim = document.createElement('div');
+                        divSim.id = 'indSimulacion';
+                        divSim.style.position = 'fixed';
+                        divSim.style.bottom = '20px';
+                        divSim.style.right = '20px';
+                        divSim.style.background = 'rgba(231, 76, 60, 0.9)';
+                        divSim.style.color = 'white';
+                        divSim.style.padding = '10px';
+                        divSim.style.borderRadius = '5px';
+                        divSim.style.zIndex = '9999';
+                        divSim.innerHTML = '<i class="fas fa-circle" style="color: white; margin-right: 5px; animation: blink 1s infinite;"></i> MODO SIMULACIÓN ACTIVADO';
+                        document.body.appendChild(divSim);
+
+                        const styleSim = document.createElement('style');
+                        styleSim.textContent = `@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }`;
+                        document.head.appendChild(styleSim);
+                    }
+
+                    // Solo montar simulación si la ruta cargó bien
+                    if (!exitoso) return;
+
+                    // Verificar si activar simulación automática
+                    if (urlParams.get('simulacion') === 'true') {
+                        console.log("🚀 Iniciando modo simulación automático...");
+                        setTimeout(iniciarSimulacion, 2000);
+                        mostrarIndicadorSimulacion();
+                    }
+
+                    // Añadir botón manual si estamos en modo desarrollo
+                    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+                        const btnSim = document.createElement('button');
+                        btnSim.innerHTML = '▶ Simular Recorrido';
+                        btnSim.style.position = 'absolute';
+                        btnSim.style.top = '70px';
+                        btnSim.style.right = '10px';
+                        btnSim.style.zIndex = '9999';
+                        btnSim.style.padding = '10px 15px';
+                        btnSim.style.background = '#e74c3c';
+                        btnSim.style.color = 'white';
+                        btnSim.style.border = 'none';
+                        btnSim.style.borderRadius = '5px';
+                        btnSim.style.fontWeight = 'bold';
+                        btnSim.style.cursor = 'pointer';
+                        btnSim.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
+                        
+                        btnSim.addEventListener('click', function() {
+                            this.style.display = 'none';
+                            mostrarIndicadorSimulacion();
+                            iniciarSimulacion();
+                        });
+                        
+                        document.body.appendChild(btnSim);
+                    }
+                });
+            } else {
+                alert('No se especificó un destino. Redirigiendo al inicio.');
+                window.location.href = 'index.html';
+            }
+        });
+
+        function inicializarMapa() {
+            // Centrar en el tecnológico de Puebla por defecto
+            const centroDefault = [19.0683, -98.1700];
+            mapa = L.map('map', {
+                zoomControl: false // Movemos el control de zoom si es necesario
+            }).setView(centroDefault, 18);
+
+            L.control.zoom({
+                position: 'bottomright'
+            }).addTo(mapa);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(mapa);
+        }
+
+        async function cargarRuta(destinoId, origenId, coordsStr) {
+            try {
+                // Simular pequeña carga para UX
+                await new Promise(r => setTimeout(r, 500));
+
+                // 1. Obtener info del destino
+                // Asumimos que existe esta función en el scope global o la simulamos
+                // En un caso real, importamos o usamos la data de js/mapa-accesible.js
+                // Para simplificar y asegurar compatibilidad, buscamos en los datos cargados por mapa-accesible.js
+
+                const nodos = obtenerTodosLosNodos();
+
+                // Buscar nodo destino (asumiendo formato 'edificio_X' o buscar por tipo 'edificio')
+                // NOTA: En mapa-accesible.js, los IDs son como 'azul_12' etc.
+                // Necesitamos mapear el ID de URL (ej: '30') al nodo del grafo.
+
+                // Mapeo inverso de edificios a nodos (se puede mejorar extrayendo de grafoAccesible.edificios)
+                let nodoDestino = null;
+                const mapaEdificios = grafoAccesible.edificios || {};
+
+                // Buscar si destinoId es clave en grafoAccesible.edificios (ej: '30': 'azul_9')
+                if (mapaEdificios[destinoId]) {
+                    const nodoId = mapaEdificios[destinoId];
+                    nodoDestino = nodos.find(n => n.id === nodoId);
+                }
+
+                if (!nodoDestino) {
+                    console.error('Nodo destino no encontrado para ID:', destinoId);
+                    // Fallback para pruebas: buscar cualquier nodo con descripción del edificio
+                    nodoDestino = nodos.find(n => n.descripcion && n.descripcion.toLowerCase().includes(`edificio ${destinoId}`));
+                }
+
+                // 2. Obtener info del origen
+                let nodoOrigen = null;
+                let coordsInicio = null;
+
+                if (coordsStr) {
+                    const [lat, lng] = coordsStr.split(',').map(Number);
+                    coordsInicio = [lat, lng];
+
+                    // Encontrar el nodo más cercano a estas coordenadas
+                    // FILTRO STRICTO: Solo nodos que sean parte de una ruta oficial o edificios/accesos
+                    const filtroNodosAccesibles = (nodo) => {
+                        return nodo.ruta || // Pertenece a una ruta (azul/naranja/verde)
+                            nodo.tipo === 'edificio' ||
+                            nodo.tipo === 'acceso';
+                    };
+
+                    nodoOrigen = encontrarNodoMasCercano(lat, lng, filtroNodosAccesibles);
+
+                    if (nodoOrigen) {
+                        console.log('📍 GPS ajustado al nodo más cercano:', nodoOrigen.id, nodoOrigen.descripcion);
+                        document.getElementById('infoOrigen').textContent = `Tu Ubicación (Cerca de ${nodoOrigen.descripcion})`;
+                    } else {
+                        console.warn('⚠️ No se encontró ningún nodo accesible cercano');
+                        document.getElementById('infoOrigen').textContent = "Ubicación detectada (Sin ruta cercana)";
+                    }
+                } else if (origenId) {
+                    // Buscar nodo por ID (ej: 'acceso_visitantes')
+                    // En el grafo los IDs pueden ser 'azul_1' etc.
+                    // Si el origenId viene como 'acceso_visitantes', buscamos en los nodos tipo 'acceso'
+
+                    // LÓGICA DE ORIGEN MEJORADA (Igual que destino)
+                    // 1. Intentar buscar si es un edificio (ej: 'edificio_45' -> busca ID '45' en mapaEdificios)
+                    if (origenId.startsWith('edificio_')) {
+                        const numEdificio = origenId.replace('edificio_', '');
+                        if (mapaEdificios[numEdificio]) {
+                            const nodoId = mapaEdificios[numEdificio];
+                            nodoOrigen = nodos.find(n => n.id === nodoId);
+                            console.log(`📍 Origen identificado como Edificio ${numEdificio} -> Nodo ${nodoId}`);
+                        }
+                    }
+
+                    // 2. Si no es edificio o falla, buscar por ID directo
+                    if (!nodoOrigen) {
+                        nodoOrigen = nodos.find(n => n.id === origenId) ||
+                            nodos.find(n => n.descripcion && n.descripcion.toLowerCase().includes(origenId.replace('_', ' ')));
+                    }
+
+                    // 3. Fallback: buscar en accesos o por texto aproximado
+                    if (!nodoOrigen) {
+                        // Intentar mapear desde grafoAccesible.accesos si existiera o buscar por texto
+                        const nodosAcceso = nodos.filter(n => n.tipo === 'acceso');
+                        // Búsqueda simple
+                        nodoOrigen = nodosAcceso.find(n => n.id.includes(origenId) || (n.descripcion && n.descripcion.toLowerCase().includes(origenId.replace('acceso_', '').replace('_', ' '))));
+                    }
+
+                    // Intentar respaldo final para edificios si viene solo como numero o texto
+                    if (!nodoOrigen && (origenId.includes('edificio') || !isNaN(origenId))) {
+                        const posibleNumero = origenId.replace(/\D/g, '');
+                        if (posibleNumero && mapaEdificios[posibleNumero]) {
+                            const nodoId = mapaEdificios[posibleNumero];
+                            nodoOrigen = nodos.find(n => n.id === nodoId);
+                        }
+                    }
+
+                    document.getElementById('infoOrigen').textContent = nodoOrigen ? nodoOrigen.descripcion : origenId;
+                }
+
+                if (!nodoDestino || !nodoOrigen) {
+                    throw new Error('No se pudieron identificar los puntos de origen o destino en el grafo de accesibilidad.');
+                }
+
+                document.getElementById('infoDestino').textContent = `Edificio ${destinoId}`;
+
+                // 3. Calcular ruta (BFS o Dijkstra simplificado sobre el grafo)
+                const ruta = calcularRutaGrafo(nodoOrigen.id, nodoDestino.id);
+
+                if (ruta.length === 0) {
+                    alert('No se encontró una ruta accesible entre estos puntos.');
+                    document.getElementById('loading').style.display = 'none';
+                    return false;
+                }
+
+                // 4. Renderizar ruta en el mapa
+                dibujarRuta(ruta, nodos);
+
+                // 5. Renderizar pasos en el sidebar
+                mostrarPasos(ruta, nodos);
+
+                // 6. Inicializar variables de progreso
+                rutaNodosObjects = ruta.map(id => nodos.find(n => n.id === id)).filter(n => n);
+                indiceNodoActual = 0;
+                actualizarEstiloPasos(); // Marcar el primer paso como activo
+
+                // Ocultar loading
+                document.getElementById('loading').style.display = 'none';
+
+                // Conexión GPS → Voz: dictar primera instrucción de orientación al cargar la ruta.
+                try {
+                    if (localStorage.getItem(UBICATEC_VOZ_STORAGE_KEY) === 'true'
+                        && window.UbicatecVoz
+                        && typeof window.UbicatecVoz.requestAccessibleRouteLocal === 'function'
+                        && typeof window.UbicatecVoz.hablar === 'function'
+                        && rutaNodosObjects.length >= 3) {
+                        
+                        // Mensaje de seguridad inicial
+                        window.UbicatecVoz.hablar("Por tu seguridad, sigue la ruta trazada en el mapa.");
+                        
+                        // Instrucción del primer tramo
+                        window.UbicatecVoz.requestAccessibleRouteLocal(rutaNodosObjects, 1)
+                            .catch(function (err) {
+                                console.warn('[Voz] Error al dictar instrucción inicial:', err);
+                            });
+                    }
+                } catch (e) {
+                    console.warn('[Voz] No se pudo verificar localStorage:', e);
+                }
+
+                return true; // Ruta cargada exitosamente
+
+            } catch (error) {
+                console.error('Error cargando ruta:', error);
+                alert('Ocurrió un error al calcular la ruta: ' + error.message);
+                document.getElementById('loading').style.display = 'none';
+                return false;
+            }
+        }
+
+        // Algoritmo BFS para encontrar camino más corto en nodos sin peso (o Dijkstra si hay pesos)
+        function calcularRutaGrafo(inicioId, finId) {
+            const aristas = obtenerAristas();
+            const nodos = obtenerTodosLosNodos();
+
+            // Construir lista de adyacencia
+            const adyacencia = {};
+            nodos.forEach(n => adyacencia[n.id] = []);
+
+            aristas.forEach(a => {
+                if (!adyacencia[a.desde]) adyacencia[a.desde] = [];
+                if (!adyacencia[a.hacia]) adyacencia[a.hacia] = [];
+
+                adyacencia[a.desde].push({ id: a.hacia, dist: a.distancia || 10 }); // Distancia default si no existe
+                // Asumimos grafo no dirigido para movimiento peatonal, o dirigido segun aristas
+                // Las aristas en mapa-accesible parecen ser dirigidas, pero para peatones suelen ser bidireccionales
+                // Verificaremos si aristas inversas existen, si no, agregamos inversa logica
+                adyacencia[a.hacia].push({ id: a.desde, dist: a.distancia || 10 });
+            });
+
+            // Dijkstra
+            const distancias = {};
+            const anteriores = {};
+            const queue = new Set(nodos.map(n => n.id));
+
+            nodos.forEach(n => distancias[n.id] = Infinity);
+            distancias[inicioId] = 0;
+
+            while (queue.size > 0) {
+                // Extraer nodo con menor distancia
+                let minNode = null;
+                let minDist = Infinity;
+
+                for (const nodeId of queue) {
+                    if (distancias[nodeId] < minDist) {
+                        minDist = distancias[nodeId];
+                        minNode = nodeId;
+                    }
+                }
+
+                if (minNode === null || minNode === finId) break;
+
+                queue.delete(minNode);
+
+                const vecinos = adyacencia[minNode] || [];
+                for (const vecino of vecinos) {
+                    if (queue.has(vecino.id)) {
+                        const alt = distancias[minNode] + vecino.dist;
+                        if (alt < distancias[vecino.id]) {
+                            distancias[vecino.id] = alt;
+                            anteriores[vecino.id] = minNode;
+                        }
+                    }
+                }
+            }
+
+            // Reconstruir camino
+            const camino = [];
+            let actual = finId;
+            if (anteriores[actual] || actual === inicioId) {
+                while (actual) {
+                    camino.unshift(actual);
+                    actual = anteriores[actual];
+                }
+            }
+
+            return camino;
+        }
+
+        // FIX BUG 4: Usar encontrarNodoMasCercano de mapa-accesible.js (usa Haversine)
+        // Si no existe la global (fallback de seguridad), definir versión local con Haversine
+        if (typeof window.encontrarNodoMasCercano !== 'function') {
+            window.encontrarNodoMasCercano = function(lat, lng, filtro) {
+                let nodos = obtenerTodosLosNodos();
+                if (filtro && typeof filtro === 'function') {
+                    nodos = nodos.filter(filtro);
+                }
+                let masCercano = null;
+                let minDistancia = Infinity;
+                nodos.forEach(nodo => {
+                    const dist = calcularDistanciaHaversine(lat, lng, nodo.coords[0], nodo.coords[1]);
+                    if (dist < minDistancia) {
+                        minDistancia = dist;
+                        masCercano = nodo;
+                    }
+                });
+                return masCercano;
+            };
+        }
+
+        function dibujarRuta(rutaIds, todosNodos) {
+            const aristas = obtenerAristas();
+
+            // Colores para cada ruta
+            const coloresRutas = {
+                'azul': '#3498db',
+                'naranja': '#e67e22',
+                'verde': '#2ecc71',
+                'sin_ruta': '#95a5a6'
+            };
+            const COLOR_PRECAUCION = '#e74c3c'; // Rojo para precaución
+
+            // Dibujar ruta por segmentos
+            for (let i = 0; i < rutaIds.length - 1; i++) {
+                const idActual = rutaIds[i];
+                const idSiguiente = rutaIds[i + 1];
+
+                const nodoActual = todosNodos.find(n => n.id === idActual);
+                const nodoSiguiente = todosNodos.find(n => n.id === idSiguiente);
+
+                if (!nodoActual || !nodoSiguiente) continue;
+
+                // Buscar la arista que conecta estos dos nodos
+                // Puede ser en cualquier dirección si el grafo es no dirigido, pero nuestras aristas son dirigidas en definición
+                // Sin embargo `calcularRuta` asume bidireccionalidad. Buscamos ambas direcciones.
+                let arista = aristas.find(a => (a.desde === idActual && a.hacia === idSiguiente) || (a.desde === idSiguiente && a.hacia === idActual));
+
+                let colorSegmento = coloresRutas['azul']; // Default
+                let esPrecaucion = false;
+
+                // Determinar color base por la ruta del nodo (o arista si tuviera)
+                const rutaNombre = nodoActual.ruta || 'azul';
+                colorSegmento = coloresRutas[rutaNombre] || colorSegmento;
+
+                // Verificar precaución
+                if (arista && arista.precaucion) {
+                    colorSegmento = COLOR_PRECAUCION;
+                    esPrecaucion = true;
+                }
+
+                // Dibujar segmento
+                L.polyline([nodoActual.coords, nodoSiguiente.coords], {
+                    color: colorSegmento,
+                    weight: 6,
+                    opacity: 0.8,
+                    dashArray: esPrecaucion ? '5, 10' : '10, 10', // Punteado diferente para precaución
+                    lineCap: 'round'
+                }).addTo(mapa);
+            }
+
+            // Ajustar vista para mostrar toda la ruta
+            const latlngs = rutaIds.map(id => {
+                const n = todosNodos.find(no => no.id === id);
+                return n ? n.coords : null;
+            }).filter(c => c !== null);
+
+            if (latlngs.length > 0) {
+                mapa.fitBounds(L.latLngBounds(latlngs), { padding: [50, 50] });
+            }
+
+            // Dibujar marcadores en los nodos
+            rutaIds.forEach((id, index) => {
+                const nodo = todosNodos.find(n => n.id === id);
+                if (!nodo) return;
+
+                const esInicio = index === 0;
+                const esFin = index === rutaIds.length - 1;
+
+                let color = coloresRutas[nodo.ruta] || '#3498db';
+                let radio = 6;
+                let peso = 2;
+
+                if (esInicio) {
+                    color = '#27ae60'; // Verde inicio
+                    radio = 10;
+                    peso = 3;
+                }
+                else if (esFin) {
+                    color = '#e74c3c'; // Rojo fin
+                    radio = 10;
+                    peso = 3;
+                }
+
+                L.circleMarker(nodo.coords, {
+                    radius: radio,
+                    fillColor: color,
+                    color: '#fff',
+                    weight: peso,
+                    opacity: 1,
+                    fillOpacity: 0.9
+                }).addTo(mapa).bindPopup(`
+                    <div style="text-align: center;">
+                        <strong>${nodo.descripcion}</strong><br>
+                        <span style="font-size: 11px; color: #666;">
+                            ${esInicio ? 'Punto de Inicio' : esFin ? 'Destino Final' : 'Paso ' + index}
+                        </span>
+                        <br>
+                        <span style="font-size: 10px; background: ${color}; color: white; padding: 1px 4px; border-radius: 3px;">
+                            ${nodo.id}
+                        </span>
+                    </div>
+                `);
+            });
+        }
+
+        /**
+         * Calcula la dirección de giro basada en el ángulo entre tres puntos
+         * @returns {string} 'recto', 'derecha', 'izquierda'
+         */
+        function obtenerIndicadorGiro(p1, p2, p3) {
+            if (!p1 || !p2 || !p3) return 'recto';
+
+            // Vectores v1 (de p1 a p2) y v2 (de p2 a p3)
+            const v1 = { x: p2.coords[1] - p1.coords[1], y: p2.coords[0] - p1.coords[0] };
+            const v2 = { x: p3.coords[1] - p2.coords[1], y: p3.coords[0] - p2.coords[0] };
+
+            // Producto cruzado para determinar dirección
+            const crossProduct = v1.x * v2.y - v1.y * v2.x;
+            const dotProduct = v1.x * v2.x + v1.y * v2.y;
+
+            // Magnitudes
+            const mag1 = Math.sqrt(v1.x * v1.x + v1.y * v1.y);
+            const mag2 = Math.sqrt(v2.x * v2.x + v2.y * v2.y);
+
+            // Ángulo en radianes
+            const angle = Math.acos(Math.max(-1, Math.min(1, dotProduct / (mag1 * mag2))));
+            const degrees = angle * (180 / Math.PI);
+
+            // Si el ángulo es pequeño, se considera recto (umbral de 20 grados)
+            if (degrees < 25) return 'recto';
+
+            return crossProduct > 0 ? 'derecha' : 'izquierda';
+        }
+
+        function generarIconoGiro(giro) {
+            return ''; // Emojis removed as requested
+        }
+
+
+        function generarTextoGiro(giro) {
+            switch (giro) {
+                case 'derecha': return 'Gira a la derecha';
+                case 'izquierda': return 'Gira a la izquierda';
+                default: return 'Continúa recto';
+            }
+        }
+
+        function mostrarPasos(rutaIds, todosNodos) {
+            const container = document.getElementById('stepsList');
+            container.innerHTML = '';
+            const aristas = obtenerAristas();
+
+            let distanciaTotal = 0;
+
+            rutaIds.forEach((id, index) => {
+                const nodo = todosNodos.find(n => n.id === id);
+                if (!nodo) return;
+
+                const sigNodo = index < rutaIds.length - 1 ? todosNodos.find(n => n.id === rutaIds[index + 1]) : null;
+                const prevNodo = index > 0 ? todosNodos.find(n => n.id === rutaIds[index - 1]) : null;
+
+                // Calcular dirección para el siguiente paso
+                let giro = 'recto';
+                if (prevNodo && sigNodo) {
+                    giro = obtenerIndicadorGiro(prevNodo, nodo, sigNodo);
+                }
+
+                // Calcular distancia con anterior
+                let distPaso = 0;
+                let alertaPrecaucion = '';
+
+                if (index > 0) {
+                    distPaso = calcularDistanciaHaversine(prevNodo.coords[0], prevNodo.coords[1], nodo.coords[0], nodo.coords[1]);
+                    distanciaTotal += distPaso;
+
+                    const arista = aristas.find(a => (a.desde === prevNodo.id && a.hacia === nodo.id) || (a.desde === nodo.id && a.hacia === prevNodo.id));
+
+                    if (arista && arista.precaucion) {
+                        alertaPrecaucion = `
+                            <div class="accessibility-alert" style="margin-top: 6px; padding: 8px 12px; background: rgba(231,76,60,0.12); border: 1px solid rgba(231,76,60,0.3); color: rgba(255,255,255,0.85);">
+                                <i class="fas fa-exclamation-triangle" style="font-size: 14px; color: #e74c3c;"></i>
+                                <div><strong>${arista.precaucion.tipo === 'obstaculo_fisico' ? 'Obstáculo' : 'Precaución'}:</strong> ${arista.precaucion.mensaje}</div>
+                            </div>
+                        `;
+                    }
+
+                }
+
+                const stepDiv = document.createElement('div');
+                stepDiv.className = 'step-item';
+                stepDiv.id = `step-${index}`;
+
+                const esFin = index === rutaIds.length - 1;
+                const contenidoGiro = (!esFin && index > 0) ?
+                    `<div class="step-desc" style="color: #50e2c1; font-weight: 600;">${generarTextoGiro(giro)}</div>` : '';
+
+                stepDiv.innerHTML = `
+                    <div class="step-icon">
+                        ${index === 0 ? 'A' : esFin ? 'B' : index}
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-content">
+                        <div id="step-tag-${index}" class="step-status-tag" style="display: none;"></div>
+                        <div class="step-title">${nodo.descripcion}</div>
+                        ${index === 0 ? '<div class="step-desc">Punto de partida</div>' : ''}
+                        ${contenidoGiro}
+                        ${alertaPrecaucion}
+                    </div>
+                `;
+
+                container.appendChild(stepDiv);
+            });
+
+
+            // Actualizar info total
+            document.getElementById('infoDistancia').textContent = `${Math.round(distanciaTotal)} m`;
+            // Estimación conservadora: 0.8 m/s (aprox 2.8 km/h) para movilidad reducida
+            const tiempoMin = Math.ceil(distanciaTotal / (0.8 * 60));
+            document.getElementById('infoTiempo').textContent = `${tiempoMin} min`;
+        }
+
+
+        // Copiada de mapa-accesible.js o modal por si acaso no está expuesta, 
+        // pero idealmente deberíamos usar la del archivo JS si es global.
+        function calcularDistanciaHaversine(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radio tierra metros
+            const φ1 = lat1 * Math.PI / 180;
+            const φ2 = lat2 * Math.PI / 180;
+            const Δφ = (lat2 - lat1) * Math.PI / 180;
+            const Δλ = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function iniciarSeguimientoGPS() {
+            if (!navigator.geolocation) {
+                console.warn("Geolocalización no soportada por este navegador.");
+                return;
+            }
+
+            const opciones = {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            };
+
+            watchId = navigator.geolocation.watchPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    const nuevaPos = [lat, lng];
+
+                    if (marcadorUsuario) {
+                        marcadorUsuario.setLatLng(nuevaPos);
+                    } else {
+                        marcadorUsuario = L.marker(nuevaPos, { icon: iconoUsuario }).addTo(mapa)
+                            .bindPopup('Tu ubicación actual')
+                            .openPopup();
+                    }
+
+                    // Centrar el mapa en la ubicación del usuario
+                    mapa.panTo(nuevaPos);
+
+                    // Lógica de Progreso
+                    if (rutaNodosObjects.length > 0) {
+                        verificarProgresoRuta(nuevaPos);
+                    }
+                },
+                (err) => {
+                    console.error("Error GPS:", err);
+                },
+                opciones
+            );
+        }
+
+        // FIX BUG 6: Protección contra llamadas repetidas al mismo nodo
+        let _ultimoNodoAvanzado = -1;
+
+        function verificarProgresoRuta(posUsuario) {
+            // Si ya terminamos, no hacer nada
+            if (indiceNodoActual >= rutaNodosObjects.length) return;
+            if (!rutaNodosObjects || rutaNodosObjects.length === 0) return;
+
+            let indiceObjetivo = indiceNodoActual + 1;
+            if (indiceObjetivo >= rutaNodosObjects.length) return;
+
+            const nodoObjetivo = rutaNodosObjects[indiceObjetivo];
+            if (!nodoObjetivo || !nodoObjetivo.coords) return;
+
+            const dist = calcularDistanciaHaversine(posUsuario[0], posUsuario[1], nodoObjetivo.coords[0], nodoObjetivo.coords[1]);
+
+            if (dist < UMBRAL_LLEGADA && _ultimoNodoAvanzado !== indiceObjetivo) {
+                _ultimoNodoAvanzado = indiceObjetivo;
+                avanzarSiguientePaso();
+            }
+        }
+
+        function reproducirSonidoDestino() {
+            try {
+                const ctx = obtenerAudioContextNotificacion();
+                if (!ctx) {
+                    return;
+                }
+
+                if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
+                    ctx.resume().catch(function () {
+                        // Puede requerir gesto del usuario segun politicas del navegador.
+                    });
+                }
+
+                // Secuencia de tonos ascendentes tipo notificación
+                const notas = [
+                    { freq: 523, t: 0.0, dur: 0.15 },   // C5
+                    { freq: 659, t: 0.18, dur: 0.15 },  // E5
+                    { freq: 784, t: 0.36, dur: 0.15 },  // G5
+                    { freq: 1047, t: 0.54, dur: 0.35 }  // C6
+                ];
+
+                notas.forEach(({ freq, t, dur }) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.4, ctx.currentTime + t);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + dur);
+                    osc.start(ctx.currentTime + t);
+                    osc.stop(ctx.currentTime + t + dur + 0.05);
+                });
+            } catch (e) {
+                console.warn('Audio no disponible:', e);
+            }
+        }
+
+        function mostrarMensajeDestino() {
+            // Eliminar banner anterior si existiera
+            const prev = document.getElementById('banner-destino');
+            if (prev) prev.remove();
+
+            const banner = document.createElement('div');
+            banner.id = 'banner-destino';
+            banner.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+                color: white;
+                padding: 16px 28px;
+                border-radius: 16px;
+                font-size: 18px;
+                font-weight: 800;
+                font-family: 'Lato', sans-serif;
+                box-shadow: 0 8px 30px rgba(39,174,96,0.45), 0 4px 12px rgba(0,0,0,0.2);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                animation: fadeInDown 0.4s ease;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            `;
+            banner.innerHTML = '¡Has llegado a tu destino!';
+
+            // Agregar animación CSS si no existe
+            if (!document.getElementById('style-banner')) {
+                const style = document.createElement('style');
+                style.id = 'style-banner';
+                style.textContent = `
+                    @keyframes fadeInDown {
+                        from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                        to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            document.body.appendChild(banner);
+            // Desaparece automáticamente después de 4 segundos
+            setTimeout(() => banner.remove(), 4000);
+        }
+
+        function avanzarSiguientePaso() {
+            indiceNodoActual++;
+            console.log("Llegada a nodo", indiceNodoActual);
+
+            actualizarEstiloPasos();
+
+            // Conexión GPS → Voz: dictar instrucción de giro en el nodo alcanzado.
+            try {
+                if (localStorage.getItem(UBICATEC_VOZ_STORAGE_KEY) === 'true'
+                    && window.UbicatecVoz
+                    && typeof window.UbicatecVoz.hablar === 'function') {
+
+                    // Verificar si la arista que acabamos de recorrer tiene precaución
+                    if (indiceNodoActual >= 1 && indiceNodoActual < rutaNodosObjects.length) {
+                        const nodoAnterior = rutaNodosObjects[indiceNodoActual - 1];
+                        const nodoActual = rutaNodosObjects[indiceNodoActual];
+                        if (nodoAnterior && nodoActual) {
+                            const aristas = obtenerAristas();
+                            const arista = aristas.find(a =>
+                                (a.desde === nodoAnterior.id && a.hacia === nodoActual.id) ||
+                                (a.desde === nodoActual.id && a.hacia === nodoAnterior.id)
+                            );
+                            if (arista && arista.precaucion && arista.precaucion.mensaje) {
+                                const tipoPrecaucion = arista.precaucion.tipo === 'obstaculo_fisico' ? 'Precaución, obstáculo' : 'Precaución';
+                                window.UbicatecVoz.hablar(`${tipoPrecaucion}: ${arista.precaucion.mensaje}`);
+                            }
+                        }
+                    }
+
+                    // También verificar la arista SIGUIENTE (la que vamos a recorrer)
+                    if (indiceNodoActual < rutaNodosObjects.length - 1) {
+                        const nodoActual2 = rutaNodosObjects[indiceNodoActual];
+                        const nodoSiguiente = rutaNodosObjects[indiceNodoActual + 1];
+                        if (nodoActual2 && nodoSiguiente) {
+                            const aristas2 = obtenerAristas();
+                            const aristaSig = aristas2.find(a =>
+                                (a.desde === nodoActual2.id && a.hacia === nodoSiguiente.id) ||
+                                (a.desde === nodoSiguiente.id && a.hacia === nodoActual2.id)
+                            );
+                            if (aristaSig && aristaSig.precaucion && aristaSig.precaucion.mensaje) {
+                                const tipoPrecaucion2 = aristaSig.precaucion.tipo === 'obstaculo_fisico' ? 'Atención, más adelante hay un obstáculo' : 'Atención';
+                                window.UbicatecVoz.hablar(`${tipoPrecaucion2}: ${aristaSig.precaucion.mensaje}`);
+                            }
+                        }
+                    }
+
+                    // Instrucción de giro normal
+                    if (typeof window.UbicatecVoz.requestAccessibleRouteLocal === 'function'
+                        && indiceNodoActual < rutaNodosObjects.length - 1) {
+                        window.UbicatecVoz.requestAccessibleRouteLocal(rutaNodosObjects, indiceNodoActual)
+                            .catch(function (err) {
+                                console.warn('[Voz] Error al dictar instrucción de giro:', err);
+                            });
+                    }
+                }
+            } catch (e) {
+                console.warn('[Voz] No se pudo verificar localStorage:', e);
+            }
+
+            if (indiceNodoActual >= rutaNodosObjects.length - 1) {
+                reproducirSonidoDestino();
+                mostrarMensajeDestino();
+            }
+        }
+
+
+        function actualizarEstiloPasos() {
+            // Recorrer todos los pasos renderizados y actualizar clases
+            const totalPasos = rutaNodosObjects.length;
+
+            for (let i = 0; i < totalPasos; i++) {
+                const stepElement = document.getElementById(`step-${i}`);
+                const tagElement = document.getElementById(`step-tag-${i}`);
+                if (!stepElement) continue;
+
+                // Limpiar estilos previos (Dark Glass theme)
+                stepElement.style.opacity = '1';
+                stepElement.style.backgroundColor = 'transparent';
+                stepElement.style.borderLeft = 'none';
+                stepElement.style.padding = '10px';
+                stepElement.style.boxShadow = 'none';
+                stepElement.querySelector('.step-title').style.fontWeight = '700';
+                stepElement.querySelector('.step-title').style.color = 'rgba(255,255,255,0.92)';
+
+                if (tagElement) {
+                    tagElement.style.display = 'none';
+                    tagElement.className = 'step-status-tag';
+                }
+
+                const iconEl = stepElement.querySelector('.step-icon');
+
+                if (i < indiceNodoActual) {
+                    // Pasos completados
+                    stepElement.style.opacity = '0.4';
+                    iconEl.innerHTML = '<i class="fas fa-check"></i>';
+                    iconEl.style.background = 'linear-gradient(135deg, #27ae60 0%, #1e8449 100%)';
+                    iconEl.style.boxShadow = '0 4px 12px rgba(39,174,96,0.4)';
+                    if (tagElement) {
+                        tagElement.innerHTML = 'Completado';
+                        tagElement.classList.add('tag-past');
+                        if (i === indiceNodoActual - 1) tagElement.style.display = 'inline-block';
+                    }
+                } else if (i === indiceNodoActual) {
+                    // Paso actual (Estás aquí) — Glass blue glow
+                    stepElement.style.backgroundColor = 'rgba(52,152,219,0.12)';
+                    stepElement.style.borderLeft = '3px solid #3498db';
+                    stepElement.style.borderRadius = '12px';
+                    stepElement.style.boxShadow = '0 0 20px rgba(52,152,219,0.15), inset 0 1px rgba(255,255,255,0.05)';
+                    stepElement.querySelector('.step-title').style.fontWeight = '800';
+                    stepElement.querySelector('.step-title').style.color = '#ffffff';
+                    iconEl.style.background = 'linear-gradient(135deg, #3498db 0%, #2980b9 100%)';
+                    iconEl.style.boxShadow = '0 4px 14px rgba(52,152,219,0.5)';
+
+                    if (tagElement) {
+                        tagElement.innerHTML = 'Estás aquí';
+                        tagElement.classList.add('tag-current');
+                        tagElement.style.display = 'inline-block';
+                    }
+
+                    // Scroll automático para mantener visible
+                    stepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (i === indiceNodoActual + 1) {
+                    // Siguiente paso — Glass orange glow
+                    stepElement.style.backgroundColor = 'rgba(230,126,34,0.1)';
+                    stepElement.style.borderLeft = '3px solid #e67e22';
+                    stepElement.style.borderRadius = '12px';
+                    iconEl.style.background = 'linear-gradient(135deg, #e67e22 0%, #d35400 100%)';
+                    iconEl.style.boxShadow = '0 4px 12px rgba(230,126,34,0.4)';
+
+                    if (tagElement) {
+                        tagElement.innerHTML = 'Siguiente paso';
+                        tagElement.classList.add('tag-next');
+                        tagElement.style.display = 'inline-block';
+                    }
+                } else {
+                    // Pasos futuros
+                    stepElement.style.opacity = '0.55';
+                }
+            }
+        }
+
+
+
+        // ==========================================
+        // MODO SIMULACIÓN (ESTILO WAZE)
+        // ==========================================
+        function calcularRumbo(latlng1, latlng2) {
+            const d2r = Math.PI / 180;
+            const r2d = 180 / Math.PI;
+            const lat1 = latlng1[0] * d2r;
+            const lat2 = latlng2[0] * d2r;
+            const dLon = (latlng2[1] - latlng1[1]) * d2r;
+            const y = Math.sin(dLon) * Math.cos(lat2);
+            const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+            let bearing = Math.atan2(y, x) * r2d;
+            return (bearing + 360) % 360;
+        }
+
+        function iniciarSimulacion() {
+            if (!rutaNodosObjects || rutaNodosObjects.length === 0) return;
+
+            // 1. Detener el GPS real para evitar conflictos de posición
+            if (watchId !== null) {
+                console.log("Deteniendo GPS real para la simulación...");
+                navigator.geolocation.clearWatch(watchId);
+                watchId = null;
+            }
+
+            // 2. Limpiar simulación previa (FIX BUG 1: era clearInterval, debe ser cancelAnimationFrame)
+            if (simulacionInterval) {
+                cancelAnimationFrame(simulacionInterval);
+                simulacionInterval = null;
+            }
+
+            let indiceTramo = 0;
+            const DURACION_TRAMO = 2500; // ms por tramo entre nodos
+            const FPS = 30;
+            const INTERVALO_REFRESCO = 1000 / FPS;
+            let start = null;
+
+            function animar(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const percent = Math.min(progress / DURACION_TRAMO, 1);
+
+                const nodoOrigen = rutaNodosObjects[indiceTramo];
+                const nodoDestino = rutaNodosObjects[indiceTramo + 1];
+
+                if (!nodoDestino) {
+                    console.log("Fin de la simulación");
+                    return;
+                }
+
+                // Interpolación lineal
+                const lat = nodoOrigen.coords[0] + (nodoDestino.coords[0] - nodoOrigen.coords[0]) * percent;
+                const lng = nodoOrigen.coords[1] + (nodoDestino.coords[1] - nodoOrigen.coords[1]) * percent;
+                const posActual = [lat, lng];
+
+                // 3. Mover marcador
+                if (marcadorUsuario) {
+                    marcadorUsuario.setLatLng(posActual);
+
+                    // Rotación del ícono (Flecha orientada)
+                    const rumbo = calcularRumbo(nodoOrigen.coords, nodoDestino.coords);
+                    const arrowElement = marcadorUsuario.getElement()?.querySelector('.user-marker-arrow');
+                    if (arrowElement) {
+                        // El rumbo calculado es el ángulo del movimiento.
+                        // fa-location-arrow está rotado -45deg por CSS en el HTML del ícono.
+                        // Aplicamos la rotación al contenedor del círculo.
+                        arrowElement.style.transform = `rotate(${rumbo}deg)`;
+                    }
+
+                } else {
+                    marcadorUsuario = L.marker(posActual, { icon: iconoUsuario }).addTo(mapa)
+                        .bindPopup('Tu ubicación simulada')
+                        .openPopup();
+                }
+
+                // 4. Centrar mapa con suavidad (solo cada ciertos frames para rendimiento)
+                if (Math.floor(progress / INTERVALO_REFRESCO) % 5 === 0) {
+                    mapa.panTo(posActual, { animate: true, duration: 0.2 });
+                }
+
+                // 5. Trigger lógica de progreso (cuando llegamos al final del tramo)
+                if (percent >= 1) {
+                    indiceTramo++;
+                    verificarProgresoRuta(nodoDestino.coords);
+                    start = null; // Reiniciar para el siguiente tramo
+                }
+
+                if (indiceTramo < rutaNodosObjects.length - 1) {
+                    simulacionInterval = requestAnimationFrame(animar);
+                }
+            }
+
+            console.log("Iniciando simulación fluida...");
+            simulacionInterval = requestAnimationFrame(animar);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+/* Objetivos tactiles accesibles para controles flotantes. */
+.action-fab,
+.ub-gmaps-fabs .route-med-button,
+.ub-gmaps-fabs .nearest-bathroom-button,
+.ub-gmaps-fabs .leyenda-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Contraste AA para la informacion de navegacion. */
+.ub-nav-hud {
+    background-color: #102a43;
+    color: #ffffff;
+}
+
+.ub-nav-hud__label,
+.ub-nav-hud__value,
+.ub-nav-hud__value span,
+.ub-nav-hud__close {
+    color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ub-nav-hud,
+    .ub-nav-hud *,
+    .ub-modal,
+    .ub-modal *,
+    .ub-sheet,
+    .ub-sheet * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

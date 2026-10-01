@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Android StatusBar Color -->
+    <meta name="theme-color" content="#004a99">
+    <!-- Título de la página -->
+    <title>Ubica tu Aula</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Optimizaciones de rendimiento SEO y Metadatos -->
+    <meta name="description" content="Encuentra tu aula en el campus del TecNM Puebla con nuestro mapa interactivo y guía de navegación.">
+    <meta name="keywords" content="Mapa Tec Puebla, Aulas ITP, Ubicatec, Tecnológico de Puebla, Croquis Campus">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ubicatec.netlify.app/aula.html">
+    
+    <!-- DNS prefetch y Preconnect para mejorar tiempos de carga de recursos externos -->
+    <link rel="dns-prefetch" href="//unpkg.com">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Estilos CSS: Bootstrap, Leaflet (Mapa), Estilos Generales y Fuentes -->
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/linearicons/icon-font.min.css">
+    
+    <!-- Estilos específicos para esta página -->
+
+
+
+
+    <!-- OneSignal SDK para Notificaciones Push (Web) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script src="js/onesignal-web.js?v=20260503a" defer></script>
+    <script src="js/web-permissions.js?v=20260503a" defer></script>
+  <link rel="stylesheet" crossorigin href="./assets/aula-DCZdmzrA.css">
+  <link rel="stylesheet" crossorigin href="./assets/style-BWoiTZ7I.css">
+  <link rel="stylesheet" crossorigin href="./assets/sidebar-BevtdpfD.css">
+  <link rel="stylesheet" crossorigin href="./assets/global-nav-CcnCCye4.css">
+  <link rel="stylesheet" crossorigin href="./assets/mobile-back-button-Be9haCS1.css">
+<link rel="stylesheet" href="css/nav-accesible.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" class="static-layout page-aula has-sidebar">
+    <!-- Botón flotante para regresar en versión móvil -->
+    <a href="javascript:history.back()" class="mobile-back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <!-- =========================================
+         SIDEBAR NAVEGACIÓN (Tablet & Desktop)
+         Oculta en móvil. Reemplaza la navbar Bootstrap en >=769px.
+         ========================================= -->
+    <aside id="sidebar-nav" aria-label="Navegación principal">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-wrap">
+                <a href="index.html" aria-label="Ubicatec - Inicio">
+                    <img src="img/navbar.svg" alt="UBICATEC logo">
+                </a>
+            </div>
+            <button id="sidebar-toggle" aria-label="Colapsar menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html" class="sidebar-item" data-tooltip="Inicio">
+                <div class="sidebar-icon"><i class="lnr lnr-home"></i></div>
+                <span class="sidebar-label">Inicio</span>
+            </a>
+            <a href="aula.html" class="sidebar-item active" data-tooltip="Ubica tu Edificio">
+                <div class="sidebar-icon"><i class="lnr lnr-map-marker"></i></div>
+                <span class="sidebar-label">Ubica tu Edificio</span>
+            </a>
+            <a href="rs.html" class="sidebar-item" data-tooltip="Redes Sociales">
+                <div class="sidebar-icon"><i class="lnr lnr-bullhorn"></i></div>
+                <span class="sidebar-label">Redes Sociales</span>
+            </a>
+            <a href="equipo.html" class="sidebar-item" data-tooltip="Equipo">
+                <div class="sidebar-icon"><i class="lnr lnr-users"></i></div>
+                <span class="sidebar-label">Equipo</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Barra de navegación flotante inferior para móviles -->
+    <div class="floating-mobile-nav" id="floatingMobileNav">
+        <div class="nav-container">
+            <div class="nav-scroll">
+                <a href="index.html" class="nav-item" id="navHome">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-home"></i>
+                    </div>
+                    <span class="nav-label">Inicio</span>
+                </a>
+                <a href="aula.html" class="nav-item active" id="navAula">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-map-marker"></i>
+                    </div>
+                    <span class="nav-label">Ubica</span>
+                </a>
+                <a href="rs.html" class="nav-item" id="navNoticias">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-bullhorn"></i>
+                    </div>
+                    <span class="nav-label">Redes Sociales</span>
+                </a>
+                <a href="equipo.html" class="nav-item" id="navEquipo">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-users"></i>
+                    </div>
+                    <span class="nav-label">Equipo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección del Mapa Interactivo (Estilo tipo Google Maps) -->
+    <section id="mapa" class="ub-map-screen">
+        <div class="ub-map-stage">
+            <div id="mapLoadingIndicator" class="ub-map-loading" style="display: none;">
+                <div class="ub-map-loading__spinner"></div>
+                <div class="ub-map-loading__text">Cargando mapa...</div>
+            </div>
+
+            <div class="ub-gmaps-topbar">
+                <button type="button" class="ub-gmaps-menu" id="ubToggleFilter" aria-controls="ubFilterPanel" aria-expanded="false" aria-label="Filtros">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+                <div class="ub-gmaps-search" id="ubSearchPanel">
+                    <form id="searchForm" onsubmit="event.preventDefault(); return false;">
+                        <button type="button" class="ub-gmaps-search__back" id="ubSearchBack" aria-label="Regresar">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <input type="search" id="searchInput" class="ub-gmaps-search__input" placeholder="Busca un lugar" autocomplete="off" />
+                        <button type="submit" id="searchBtn" class="ub-gmaps-search__btn" aria-label="Buscar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                    <div id="ubSearchSuggest" class="ub-search-suggest" style="display:none;"></div>
+                </div>
+                <button type="button" class="ub-controls-tab" id="ubToggleSearch" aria-controls="ubSearchPanel" aria-expanded="true" style="display:none;"></button>
+            </div>
+
+            <div class="ub-search-overlay" id="ubSearchOverlay" style="display:none;"></div>
+
+            <div class="ub-drawer-overlay" id="ubFilterOverlay" style="display:none;"></div>
+            <aside class="ub-drawer" id="ubFilterPanel" aria-hidden="true" role="dialog" aria-label="Filtros">
+                <div class="ub-drawer__header">
+                    <div class="ub-drawer__header-left">
+                        <div class="ub-drawer__titles">
+                            <div class="ub-drawer__title">Filtros</div>
+                            <div class="ub-drawer__subtitle">Categorías de edificios</div>
+                        </div>
+                    </div>
+                    <button type="button" class="ub-drawer__close" id="ubFilterClose" aria-label="Cerrar">&times;</button>
+                </div>
+                <div class="ub-drawer__content">
+                    <div class="ub-drawer__section">Tipos</div>
+                    <div class="ub-drawer__list" id="ubFilterList">
+                        <button type="button" class="ub-drawer__item" data-filter="">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-ban"></i></span>
+                            <span class="ub-drawer__item-label">Sin filtro</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="aula">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-school"></i></span>
+                            <span class="ub-drawer__item-label">Aulas</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="laboratorio">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-flask"></i></span>
+                            <span class="ub-drawer__item-label">Laboratorios</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="administrativo">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-building"></i></span>
+                            <span class="ub-drawer__item-label">Administrativo</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="deportivo">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-futbol"></i></span>
+                            <span class="ub-drawer__item-label">Deportivo y recreativo</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="punto_reunion">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-users"></i></span>
+                            <span class="ub-drawer__item-label">Puntos de reunión</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        <button type="button" class="ub-drawer__item" data-filter="acceso">
+                            <span class="ub-drawer__item-icon" aria-hidden="true"><i class="fas fa-door-open"></i></span>
+                            <span class="ub-drawer__item-label">Accesos</span>
+                            <span class="ub-drawer__item-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+                        </button>
+                        
+                    </div>
+
+                    <select id="filterSelect" class="modern-select ub-filter-select--hidden">
+                        <option value="" selected>Sin filtro</option>
+                        <option value="aula">Aulas</option>
+                        <option value="laboratorio">Laboratorios</option>
+                        <option value="administrativo">Administrativo</option>
+                        <option value="deportivo">Deportivo y Recreativo</option>
+                        <option value="punto_reunion">Puntos de reunión</option>
+                        <option value="acceso">Accesos</option>
+                          
+                    </select>
+                </div>
+            </aside>
+
+            <div id="map"></div>
+
+            <div class="ub-nav-hud" id="ubNavHud" style="display:none;">
+                <div class="ub-nav-hud__row">
+                    <div class="ub-nav-hud__label">Distancia:</div>
+                    <div class="ub-nav-hud__value"><span id="ubNavDistance">0</span> m</div>
+                    <button type="button" class="ub-voice-toggle-btn" id="ubNavVoiceToggle" aria-label="Silenciar guía por voz" title="Guía por voz: Activada">🔊</button>
+                    <button type="button" class="ub-nav-hud__close" id="ubNavStop" aria-label="Cerrar">&times;</button>
+                </div>
+            </div>
+
+            <div class="leyenda-tab" id="leyendaTab" style="display: none;">
+                <i class="fas fa-chevron-up"></i>
+                <span>Leyenda de Marcadores</span>
+            </div>
+
+            <div class="ub-gmaps-fabs">
+                <button class="route-med-button" id="routeMedButton" title="Ruta a Servicio Médico">
+                    <img src="Icon/medicos.png" alt="" width="26" height="26" loading="eager" decoding="async" />
+                </button>
+                <button class="nearest-bathroom-button" id="nearestBathroomButton" title="Baño más cercano">
+                    <img src="Icon/baños.png" alt="" width="26" height="26" loading="eager" decoding="async" />
+                </button>
+                <button class="leyenda-button" id="leyendaButton" title="Mostrar leyenda de marcadores">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+
+            <div class="leyenda-modal" id="leyendaModal">
+                <div class="leyenda-content">
+                    <button class="leyenda-close" id="leyendaClose">&times;</button>
+                    <h4>Leyenda de Marcadores</h4>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #3498db; border-color: #2980b9;">
+                            <img src="Icon/tabler/school.svg" alt="Aulas" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Aulas</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #27ae60; border-color: #229954;">
+                            <img src="Icon/tabler/microscope.svg" alt="Laboratorios" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Laboratorios</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #e67e22; border-color: #d35400;">
+                            <img src="Icon/tabler/building.svg" alt="Administrativo" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Administrativo</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #004DA3; border-color: #003a7d;">
+                            <img src="Icon/baños.png" alt="Baños" class="leyenda-icon" loading="eager" decoding="async">
+                        </div>
+                        <span class="leyenda-texto">Baños</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #93c5fd; border-color: #60a5fa;">
+                            <img src="Icon/medicos.png" alt="Servicio Médico" class="leyenda-icon" loading="eager" decoding="async">
+                        </div>
+                        <span class="leyenda-texto">Servicio Médico</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #16a34a; border-color: #15803d;">
+                            <img src="img/reunion.png" alt="Puntos de reunión" class="leyenda-icon" loading="eager" decoding="async">
+                        </div>
+                        <span class="leyenda-texto">Puntos de reunión</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #e74c3c; border-color: #c0392b;">
+                            <img src="Icon/tabler/door.svg" alt="Accesos" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Accesos</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #2ecc71; border-color: #27ae60;">
+                            <img src="Icon/tabler/sport.svg" alt="Deportivo" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Deportivo</span>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-color" style="background-color: #95a5a6; border-color: #7f8c8d;">
+                            <img src="Icon/tabler/tools.svg" alt="Otros" class="leyenda-icon" loading="lazy">
+                        </div>
+                        <span class="leyenda-texto">Otros</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leyenda-modal" id="resultadosModal" style="display: none; z-index: 10001;">
+                <div class="leyenda-content" style="max-height: 80vh; overflow-y: auto;">
+                    <button class="leyenda-close" id="resultadosClose">&times;</button>
+                    <h4 style="margin-bottom: 15px; color: #333; text-align: center;">Resultados encontrados</h4>
+                    <p style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #666;">Selecciona una opción para ver en el mapa:</p>
+                    <div id="listaResultados" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="ub-modal" id="ubGeoModal" style="display: none;">
+        <div class="ub-modal-content">
+            <div class="ub-modal-header">
+                <h2 id="ubGeoTitle">Ubicación requerida</h2>
+                <button class="ub-close-button" id="ubGeoClose">&times;</button>
+            </div>
+            <div class="ub-modal-body" id="ubGeoBody">Para mostrar el baño más cercano, habilita la ubicación en tu dispositivo.</div>
+            <div class="ub-modal-footer">
+                <button class="ub-btn ub-btn-secondary" id="ubGeoCancel">Cancelar</button>
+                <button class="ub-btn ub-btn-primary" id="ubGeoAllow">Permitir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-modal" id="ubPRModal" style="display: none;">
+        <div class="ub-modal-content">
+            <div class="ub-modal-header">
+                <h2 id="ubPRTitle">Punto de reunión</h2>
+                <button class="ub-close-button" id="ubPRClose">&times;</button>
+            </div>
+            <div class="ub-modal-body" id="ubPRBody">¿Quieres ir a este punto de reunión?</div>
+            <div class="ub-modal-footer">
+                <button class="ub-btn ub-btn-primary" id="ubPRGo">Ir ahí</button>
+                <button class="ub-btn ub-btn-secondary" id="ubPRCancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-modal" id="ubRouteModal" style="display: none;">
+        <div class="ub-modal-content">
+            <div class="ub-modal-header">
+                <h2>Distancia Restante: <span id="ubRouteDistance">0</span> Metros</h2>
+                <button class="ub-close-button" id="ubRouteClose">&times;</button>
+            </div>
+            <div class="ub-modal-body">
+                <div id="ubRouteMap" style="height: 65vh;"></div>
+            </div>
+            <div class="ub-modal-footer">
+                <button class="ub-btn ub-btn-secondary" id="ubRouteHide">Cerrar Mapa</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-sheet-backdrop" id="ubBldgBackdrop" style="display: none;"></div>
+    <aside class="ub-sheet" id="ubBldgSheet" aria-hidden="true">
+        <div class="ub-sheet-handle"></div>
+        <div class="ub-sheet-header">
+            <div class="ub-sheet-title-wrap">
+                <h3 class="ub-sheet-title" id="ubBldgTitle"></h3>
+                <div class="ub-sheet-subtitle" id="ubBldgSubtitle"></div>
+            </div>
+            <button type="button" class="ub-sheet-close" id="ubBldgClose" aria-label="Cerrar">&times;</button>
+        </div>
+        <div class="ub-sheet-body">
+            <img id="ubBldgImg" class="ub-sheet-img" alt="" loading="lazy" />
+            <div class="ub-sheet-desc" id="ubBldgDesc"></div>
+            <div class="ub-sheet-section" id="ubBldgHorarioWrap" style="display: none;">
+                <div class="ub-sheet-section-title">Horario</div>
+                <div class="ub-sheet-section-body" id="ubBldgHorario"></div>
+            </div>
+            <div class="ub-sheet-section" id="ubBldgInstalacionesWrap" style="display: none;">
+                <div class="ub-sheet-section-title">Instalaciones</div>
+                <ul class="ub-sheet-list" id="ubBldgInstalaciones"></ul>
+            </div>
+            <div class="ub-sheet-actions">
+                <button type="button" class="ub-btn ub-btn-primary" id="ubBldgGo">Ir aquí</button>
+                <button type="button" class="ub-btn ub-btn-secondary" id="ubBldg360">Ver 360°</button>
+            </div>
+        </div>
+    </aside>
+
+    <div class="ub-modal" id="ub360Modal" style="display: none;">
+        <div class="ub-modal-content ub-360-content">
+            <div class="ub-modal-header">
+                <h2 id="ub360Title">Vista 360°</h2>
+                <button class="ub-close-button" id="ub360Close">&times;</button>
+            </div>
+            <div class="ub-modal-body">
+                <div id="ub360Scene" class="ub-360-scene"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-modal" id="ubArrivalModal" style="display: none;">
+        <div class="ub-modal-content">
+            <div class="ub-modal-header">
+                <h2>¡Has llegado!</h2>
+                <button class="ub-close-button" id="ubArrivalClose" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="ub-modal-body">
+                <p>Has llegado a tu destino. ¡Bienvenido!</p>
+            </div>
+            <div class="ub-modal-footer">
+                <button class="ub-btn ub-btn-primary" id="ubArrivalOk">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ub-modal" id="ubCancelNavModal" style="display: none;">
+        <div class="ub-modal-content ub-cancel-nav-content">
+            <div class="ub-modal-header">
+                <h2>Cancelar trayecto</h2>
+                <button class="ub-close-button" id="ubCancelNavClose" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="ub-modal-body">
+                <p>¿Seguro que deseas cancelar el trayecto actual?</p>
+            </div>
+            <div class="ub-modal-footer">
+                <button class="ub-btn ub-btn-secondary" id="ubCancelNavNo">No</button>
+                <button class="ub-btn ub-btn-primary ub-btn-danger" id="ubCancelNavYes">Sí, cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts: jQuery, Bootstrap, Leaflet, AOS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script defer src="vendor/bootstrap/popper.min.js"></script>
+    <script defer src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script defer src="vendor/aos/aos.js"></script>
+    <script defer src="vendor/leaflet/leaflet.js"></script>
+    
+    <!-- Métricas (RTDB) -->
+    <script defer src="js/metrics-legacy.js?v=20260729_atomic2"></script>
+    <script defer src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <!-- Guía de Navegación por Voz -->
+    <script defer src="js/voiceNav.js"></script>
+    <!-- Lógica del Mapa -->
+    <script defer src="js/mapa.js?v=2"></script>
+    
+    <!-- Scripts Utilitarios y Lógica de la Página -->
+    <script src="js/utils.js?v=20260430a" defer></script>
+    <script src="js/global-nav.js" defer></script>
+    <script src="js/aula.js?v=2" defer></script>
+
+
+    <script>
+    (function () {
+        var sidebar = document.getElementById('sidebar-nav');
+        var toggle  = document.getElementById('sidebar-toggle');
+        if (!sidebar || !toggle) return;
+
+        var KEY = 'ubicatec_sidebar_mini';
+        var autoCollapseTimer = null;
+
+        function isExpanded(){ return !sidebar.classList.contains('sb-mini'); }
+        function isMobile(){ return window.innerWidth <= 768; }
+        function isTablet(){ return window.innerWidth > 768 && window.innerWidth < 1024; }
+
+        function applyState(mini, animate) {
+            if (isMobile()) {
+                document.body.style.removeProperty('--sb-w');
+                return;
+            }
+            if (!animate) {
+                sidebar.style.transition = 'none';
+                if (mini) sidebar.classList.add('sb-mini');
+                else sidebar.classList.remove('sb-mini');
+                document.body.style.setProperty('--sb-w', mini ? '64px' : '240px');
+                // Forzar reflow
+                void sidebar.offsetWidth;
+                sidebar.style.transition = '';
+            } else {
+                if (mini) sidebar.classList.add('sb-mini');
+                else sidebar.classList.remove('sb-mini');
+                document.body.style.setProperty('--sb-w', mini ? '64px' : '240px');
+            }
+        }
+
+        function clearAutoCollapse() {
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+                autoCollapseTimer = null;
+            }
+        }
+
+        function startAutoCollapse() {
+            clearAutoCollapse();
+            if (!isMobile() && isExpanded()) {
+                autoCollapseTimer = setTimeout(function() {
+                    applyState(true, true);
+                    localStorage.setItem(KEY, '1');
+                }, 7000);
+            }
+        }
+
+        function init() {
+            if (isMobile()) return;
+            var saved = localStorage.getItem(KEY);
+            var mini  = saved !== null ? saved === '1' : isTablet();
+            applyState(mini, false);
+            if (!mini) startAutoCollapse();
+        }
+
+        // Pausar timer mientras el cursor está sobre la sidebar
+        sidebar.addEventListener('mouseenter', clearAutoCollapse);
+        // Reanudar timer al salir de la sidebar (solo si está expandida)
+        sidebar.addEventListener('mouseleave', function () {
+            var mini = !sidebar.classList.contains('sb-mini');
+            if (mini) startAutoCollapse();
+        });
+
+        // Toggle al hacer click
+        toggle.addEventListener('click', function () {
+            var mini = !sidebar.classList.contains('sb-mini');
+            applyState(mini, true);
+            localStorage.setItem(KEY, mini ? '1' : '0');
+
+            if (!mini) {
+                // Se expandió -> iniciar auto-colapso
+                startAutoCollapse();
+            } else {
+                // Se colapsó manualmente -> cancelar timer
+                clearAutoCollapse();
+            }
+        });
+
+        // Re-evaluar al cambiar tamaño de ventana
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (isMobile()) {
+                    // En móvil: quitar var inline para que CSS sea el que manda
+                    document.body.style.removeProperty('--sb-w');
+                    clearAutoCollapse();
+                    return;
+                }
+                // En tablet/desktop: re-aplicar desde localStorage
+                var saved = localStorage.getItem(KEY);
+                var mini  = saved !== null ? saved === '1' : isTablet();
+                applyState(mini, false);
+            }, 120);
+        });
+
+        // Inicializar en DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+<script defer src="js/mapa-accesible.js"></script>
+<script defer src="js/modulo-rutas-voz.js"></script>
+<script defer src="js/voz-navegacion.js"></script>
+<script defer src="js/nav-guiado.js"></script>
+<script defer src="js/boton-accesibilidad.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+

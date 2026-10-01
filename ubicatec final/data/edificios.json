@@ -1,0 +1,1135 @@
+{
+  "edificios": [
+    {
+      "id": 1,
+      "nombre": "Edificio 1",
+      "descripcion": "Sede de la administración central del plantel. Este inmueble integra la oficina de dirección, la sala de juntas oficial y las diversas dependencias encargadas de la gestión administrativa y operativa de la institución.",
+      "imagen": "img/edificios/edificio 1.webp",
+      "instalaciones": [
+        "Oficina de dirección.",
+        "Salas de juntas."
+      ],
+      "horario": "Lunes a Viernes de 9:00 a 17:00 horas.",
+      "coords": [
+        19.0700471611661,
+        -98.16987998532049
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_1_y_2.webp"
+    },
+    {
+      "id": 2,
+      "nombre": "Edificio 2",
+      "descripcion": "Este inmueble concentra los servicios de atención escolar y gestión académica. Alberga las ventanillas de Servicios Escolares para el trámite de credenciales y pases vehiculares, así como las oficinas de las coordinaciones de los distintos programas educativos.",
+      "imagen": "img/edificios/edificio 2.webp",
+      "instalaciones": [
+        "Cubículos donde los coordinadores podrán entablar conversaciones con el estudiante acerca de su rendimiento académico.",
+        "Ventanillas para recepción de documentos."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070339683584418,
+        -98.16984213200494
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_1_y_2.webp"
+    },
+    {
+      "id": 3,
+      "nombre": "Edificio 3",
+      "descripcion": "Inmueble de uso compartido que alberga la jefatura del Departamento de Sistemas y Computación, así como las áreas académicas de Tecnologías de la Información y Comunicación (TIC). Asimismo, integra las oficinas administrativas de Planeación y Vinculación, y cuenta con espacios destinados a la impartición de cátedra.",
+      "imagen": "img/edificios/edificio 3.webp",
+      "instalaciones": [
+        "Cubículos individuales de maestros de TIC´s para la atención y tutoría de los estudiantes por parte de los docentes.",
+        "Oficina de la Jefatura del Departamento, encargada de la coordinación académica y administrativa."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.07028250570129,
+        -98.1691442328977
+      ],
+      "tipo": [
+        "administrativo",
+        "aula"
+      ],
+      "imagen_360": "img/360/Edificio_3.webp"
+    },
+    {
+      "id": 4,
+      "nombre": "Edificio 4",
+      "descripcion": "El Edificio 4 está dedicado principalmente al desarrollo académico de los estudiantes, albergando diversas aulas para las diferentes materias y servicios sanitarios para la comunidad estudiantil.",
+      "imagen": "img/edificios/edificio 4.webp",
+      "instalaciones": [
+        "Aulas equipadas para la impartición de clases teóricas y prácticas.",
+        "Servicios sanitarios para hombres y mujeres."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070338275809316,
+        -98.16871239724523
+      ],
+      "tipo": [
+        "aula",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_4.webp"
+    },
+    {
+      "id": 5,
+      "nombre": "Edificio 5",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 5.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070279970696365,
+        -98.16838516772772
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/edificio_5.webp"
+    },
+    {
+      "id": 6,
+      "nombre": "Edificio 6",
+      "descripcion": "Este inmueble alberga las oficinas de Desarrollo Académico, orientadas a la gestión y mejora pedagógica institucional. Asimismo, se encuentran en este espacio las oficinas de representación del Comité Ejecutivo de la Sociedad de Alumnos (CESA).",
+      "imagen": "img/edificios/edificio 6.webp",
+      "instalaciones": [
+        "Oficinas de las Coordinaciones del Departamento de Desarrollo Académico.",
+        "Espacios de reunión y oficinas del Comité Ejecutivo de la Sociedad de Alumnos (CESA)."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070056890074806,
+        -98.16867484631699
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_6.webp"
+    },
+    {
+      "id": 7,
+      "nombre": "Edificio 7",
+      "descripcion": "El Edificio 4 está dedicado principalmente al desarrollo académico de los estudiantes, albergando diversas aulas para las diferentes materias y servicios sanitarios para la comunidad estudiantil.",
+      "imagen": "img/edificios/edificio 7.webp",
+      "instalaciones": [
+        "Aulas equipadas para la impartición de clases teóricas y prácticas.",
+        "Servicios sanitarios para hombres y mujeres."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069965,
+        -98.168309
+      ],
+      "tipo": [
+        "aula",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_7.webp"
+    },
+    {
+      "id": 8,
+      "nombre": "Edificio 8",
+      "descripcion": "Inmueble destinado de forma integral al desarrollo de actividades académicas. Sus instalaciones constan de diversos salones equipados para la impartición de cátedra y el trabajo académico presencial.",
+      "imagen": "img/edificios/edificio 8.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0697161,
+        -98.1687085
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/Edificio_8.webp"
+    },
+    {
+      "id": 9,
+      "nombre": "Edificio 9",
+      "descripcion": "Este inmueble combina espacios para la docencia y el trabajo colegiado. Alberga un conjunto de aulas para la impartición de clases, además de un área de cubículos destinada a las actividades de planeación y asesoría de los catedráticos.",
+      "imagen": "img/edificios/edificio 9.webp",
+      "instalaciones": [
+        "Aulas equipadas para diversas disciplinas y modalidades de enseñanza.",
+        "Cubículos individuales para la atención de estudiantes, preparación de clases y actividades administrativas del profesorado."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0696648,
+        -98.1683283
+      ],
+      "tipo": [
+        "aula",
+        "administrativo"
+      ],
+      "imagen_360": "img/360/edificio_9.webp"
+    },
+    {
+      "id": 10,
+      "nombre": "Edificio 10",
+      "descripcion": "El Edificio 10 alberga la Jefatura del Departamento de Ciencias Económico Administrativas y otras oficinas clave de este departamento. Es el punto de contacto principal para estudiantes y personal interesado en temas relacionados con las licenciaturas en esta área.",
+      "imagen": "img/edificios/edificio 10.webp",
+      "instalaciones": [
+        "Oficina de la Jefatura del Departamento de Ciencias Económico Administrativas.",
+        "Oficinas de atención administrativa del departamento."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069675,
+        -98.168104
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_10.webp"
+    },
+    {
+      "id": 11,
+      "nombre": "Edificio 11",
+      "descripcion": "Inmueble dedicado a la actividad docente que integra salones de clase. La estructura se distingue por contar con un pórtico de acceso, un espacio techado y abierto que facilita el tránsito y la estancia en el ingreso a la unidad.",
+      "imagen": "img/edificios/edificio 11.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06959,
+        -98.169141
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/Edificio_11.webp"
+    },
+    {
+      "id": 12,
+      "nombre": "Edificio 12",
+      "descripcion": "Inmueble destinado a la impartición de cátedra que cuenta con una serie de aulas y servicios sanitarios integrados. El edificio destaca por su diseño con pórtico frontal, el cual funciona como vestíbulo exterior y área de transición para el ingreso a las instalaciones.",
+      "imagen": "img/edificios/edificio 12.webp",
+      "instalaciones": [
+        "Aulas equipadas para el desarrollo de las sesiones de clase.",
+        "Servicios sanitarios para hombres y mujeres."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069453,
+        -98.168654
+      ],
+      "tipo": [
+        "aula",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_12.webp"
+    },
+    {
+      "id": 13,
+      "nombre": "Edificio 13",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 13.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0693308,
+        -98.1681797
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/edificio_13.webp"
+    },
+    {
+      "id": 14,
+      "nombre": "Edificio 14",
+      "descripcion": "Inmueble destinado a la formación académica que alberga diversos salones de clase. Este edificio destaca por integrar el Aula Galileo Galilei, un espacio especializado para la impartición de cátedra y actividades académicas relevantes dentro del plantel.",
+      "imagen": "img/edificios/edificio 14.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase.",
+        "Aula Galileo Galilei."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069386,
+        -98.169351
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/edificio_14.webp"
+    },
+    {
+      "id": 15,
+      "nombre": "Edificio 15",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 15.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069281,
+        -98.168944
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/Edificio_15.webp"
+    },
+    {
+      "id": 16,
+      "nombre": "edificio 16 (oficinas Delegación D-V-79)",
+      "descripcion": "El Sindicato Nacional de Trabajadores de la Educación lo integran trabajadores de base, permanentes, interinos y transitorios al servicio de la educación.",
+      "imagen": "img/edificios/edificio 16.webp",
+      "logo": "img/sindicato/590703715_1296898245811120_3574349551970835064_n.jpg",
+      "instalaciones": [
+        "Oficinas sindicales de la Delegación D-V-79 (Sección 61 SNTE).",
+        "Atención y gestión para trabajadores de base, permanentes, interinos y transitorios.",
+        "Sala de reuniones y espacio para trámites sindicales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069341,
+        -98.17029
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/edificio_16.webp"
+    },
+    {
+      "id": 17,
+      "nombre": "Edificio 17",
+      "descripcion": "Este inmueble combina la función docente con la protocolaria. Alberga diversas aulas para el desarrollo de clases y cuenta con la Sala de Titulación, un espacio formal destinado a la realización de exámenes profesionales y actos protocolarios de egreso.",
+      "imagen": "img/edificios/edificio 17.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase.",
+        "Sala de Titulación."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069322,
+        -98.16991
+      ],
+      "tipo": [
+        "administrativo",
+        "aula"
+      ]
+    },
+    {
+      "id": 18,
+      "nombre": "Edificio 18",
+      "descripcion": "Este inmueble está destinado al desarrollo de actividades docentes y cuenta con el Aula Jean Piaget. El diseño del edificio integra servicios sanitarios y un pórtico frontal que sirve como área de acceso cubierta y zona de transición para la comunidad académica.",
+      "imagen": "img/edificios/edificio 18.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase.",
+        "Aula Jean Piaget."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069206,
+        -98.169657
+      ],
+      "tipo": [
+        "aula",
+        "baños"
+      ]
+    },
+    {
+      "id": 19,
+      "nombre": "Edificio 19",
+      "descripcion": "Espacio especializado destinado a la formación científica práctica y teórica. El inmueble alberga laboratorios equipados para el desarrollo de experimentos y prácticas en las áreas de física y química, contando además con instalaciones adecuadas para la impartición de cátedra vinculada a estas disciplinas.",
+      "imagen": "img/edificios/labo ciencias basicas.webp",
+      "instalaciones": [
+        "Laboratorio de ciencias básicas con equipos para experimentos y prácticas en física y química."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069084,
+        -98.169326
+      ],
+      "tipo": "laboratorio",
+      "imagen_360": "img/360/Edificio_19.webp"
+    },
+    {
+      "id": 20,
+      "nombre": "Edificio 20",
+      "descripcion": "Inmueble especializado diseñado para el desarrollo de competencias técnicas y experimentales. Cuenta con infraestructura de laboratorio para la ejecución de prácticas en materia de electricidad, integrando además áreas destinadas a la impartición de clases teóricas vinculadas a la ingeniería.",
+      "imagen": "img/edificios/edificio 20.webp",
+      "instalaciones": [
+        "Aulas para enseñanza de temas técnicos y experimentales.",
+        "Caseta con equipo de electricidad para experimentos y prácticas.",
+        "Cubos de profesores."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069205695460248,
+        -98.16860064509656
+      ],
+      "tipo": "laboratorio",
+      "imagen_360": "img/360/Edificio_20.webp"
+    },
+    {
+      "id": 21,
+      "nombre": "Edificio 21",
+      "descripcion": "Este inmueble funge como la sede académica y operativa de las áreas administrativas. Alberga las oficinas del departamento, así como el Laboratorio de Negocios, un espacio especializado para la práctica profesional y el análisis empresarial; asimismo, cuenta con aulas destinadas a la impartición de cátedra.",
+      "imagen": "img/edificios/edificio 21.webp",
+      "instalaciones": [
+        "Laboratorio de Negocios.",
+        "Oficinas del departamento.",
+        "Aulas teóricas con proyector."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068948,
+        -98.168838
+      ],
+      "tipo": [
+        "administrativo",
+        "aula"
+      ]
+    },
+    {
+      "id": 22,
+      "nombre": "Edificio 22",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 22.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069201,
+        -98.170032
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/Edificio_22.webp"
+    },
+    {
+      "id": 23,
+      "nombre": "Edificio 23",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 23.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068833,
+        -98.170307
+      ],
+      "tipo": "aula"
+    },
+    {
+      "id": 24,
+      "nombre": "Edificio 24",
+      "descripcion": "Inmueble integrado por espacios especializados de formación que llevan nombres de figuras destacadas en la ciencia y la industria. Este edificio alberga las salas Tomas Alva Edison, Albert Einstein y W.E. Deming, diseñadas para la impartición de cátedra, ponencias y actividades académicas de alto nivel.",
+      "imagen": "img/edificios/edificio 24.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase.",
+        "Salas de cátedra con proyector para clases magistrales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068907,
+        -98.169477
+      ],
+      "tipo": "aula"
+    },
+    {
+      "id": 25,
+      "nombre": "Edificio 25",
+      "descripcion": "Este inmueble desempeña una función multidisciplinaria al albergar la Sala José Vasconcelos, espacio dedicado a actividades académicas y culturales. Asimismo, integra el área de Servicio Médico para la atención de la comunidad y cuenta con instalaciones sanitarias para mujeres.",
+      "imagen": "img/edificios/servicio medico.webp",
+      "instalaciones": [
+        "Servicio medico.",
+        "Aula con proyector para actividades académicas."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068845419565694,
+        -98.16910953816078
+      ],
+      "tipo": [
+        "administrativo",
+        "aula",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_25.webp"
+    },
+    {
+      "id": 26,
+      "nombre": "Edificio 26",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 26.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0688019,
+        -98.1688332
+      ],
+      "tipo": "aula",
+      "imagen_360": "img/360/Edificio_26.webp"
+    },
+    {
+      "id": 27,
+      "nombre": "Edificio 27",
+      "descripcion": "Este inmueble constituye un espacio fundamental para la formación técnica y experimental. Alberga las instalaciones del Laboratorio de Ingeniería Mecánica y el Centro de Innovación y Diseño Industrial (CIDI), integrando infraestructura especializada, maquinaria y herramientas avanzadas para la ejecución de prácticas, proyectos de diseño y formación académica en procesos industriales.",
+      "imagen": "img/edificios/labo mecanica.webp",
+      "instalaciones": [
+        "Laboratorio de mecanica con equipos de fabricacion y ensamblaje.",
+        "CIDI con infraestructura especializada, maquinaria y herramientas avanzadas.",
+        "Maquinaria para la fabricacion de componentes y ensamblaje de equipos industriales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068793,
+        -98.168558
+      ],
+      "tipo": "laboratorio",
+      "imagen_360": "img/360/Edificio_27.webp"
+    },
+    {
+      "id": 28,
+      "nombre": "Edificio 28",
+      "descripcion": "Este edificio alberga diversas aulas destinadas a la impartición de clases teóricas y prácticas para las diferentes carreras ofrecidas por el instituto, proporcionando espacios adecuados para el aprendizaje y la interacción académica.",
+      "imagen": "img/edificios/edificio 28.webp",
+      "instalaciones": [
+        "Aulas equipadas con mobiliario funcional y recursos audiovisuales para el desarrollo de las sesiones de clase."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068603,
+        -98.170041
+      ],
+      "tipo": "aula"
+    },
+    {
+      "id": 29,
+      "nombre": "Edificio 29",
+      "descripcion": "Inmueble destinado al desarrollo de estudios de nivel avanzado e investigación. Sus instalaciones integran espacios para la formación de posgrado, así como un área de cubículos diseñada para la actividad académica, planeación y asesoría por parte del personal docente y de investigación.",
+      "imagen": "img/edificios/edificio 29.webp",
+      "instalaciones": [
+        "Cubículos para la actividad académica, planeación y asesoría por parte del personal docente y de investigación."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06859,
+        -98.169251
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_29.webp"
+    },
+    {
+      "id": 30,
+      "nombre": "Edificio 30",
+      "descripcion": "Inmueble de alta especialización técnica que alberga la infraestructura para el desarrollo de procesos de manufactura avanzada. Este edificio funciona también como la sede del Departamento de Metal Mecánica, integrando en un mismo espacio la gestión académica, el diseño industrial y la ejecución de prácticas tecnológicas especializadas.",
+      "imagen": "img/edificios/edificio 30.webp",
+      "instalaciones": [
+        "Maquinaria para la fabricacion de componentes y ensamblaje de equipos industriales.",
+        "Herramientas para la fabricacion de componentes y ensamblaje de equipos industriales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0684055,
+        -98.1689559
+      ],
+      "tipo": "laboratorio",
+      "imagen_360": "img/360/Mecanica.webp"
+    },
+    {
+      "id": 31,
+      "nombre": "Edificio 31",
+      "descripcion": "Este inmueble es el centro de gestión y promoción de las expresiones artísticas del plantel. Alberga la oficina de la Coordinación Cultural y cuenta con espacios polivalentes destinados al desarrollo de talleres, ensayos y diversas actividades orientadas a la formación integral y el fomento de la cultura.",
+      "imagen": "img/edificios/cordi cultural.webp",
+      "instalaciones": [
+        "Escenario para ensayos y talleres.",
+        "Material para talleres y ensayos."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0684058,
+        -98.1685666
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_31.webp"
+    },
+    {
+      "id": 32,
+      "nombre": "Edificio 32",
+      "descripcion": "Inmueble de carácter técnico que anteriormente funcionaba como centro de control y distribución de energía eléctrica para el plantel. Actualmente, el edificio se mantiene como parte del inventario de infraestructura técnica y de servicios para soporte de las instalaciones institucionales.",
+      "imagen": "img/edificios/edificio 32.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068168,
+        -98.168593
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 33,
+      "nombre": "Edificio 33",
+      "descripcion": "Inmueble de alta especialización dedicado a la investigación aplicada y la generación de soluciones tecnológicas. Este espacio está diseñado para el fomento de proyectos innovadores, integrando infraestructura técnica que permite el desarrollo, prototipado y validación de nuevas tecnologías en beneficio de la comunidad académica.",
+      "imagen": "img/edificios/edificio 33.webp",
+      "instalaciones": [
+        "Espacios para proyectos innovadores.",
+        "Infraestructura técnica para el desarrollo, prototipado y validación de nuevas tecnologías."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068213,
+        -98.169197
+      ],
+      "tipo": "laboratorio"
+    },
+    {
+      "id": 34,
+      "nombre": "Edificio 34",
+      "descripcion": "Inmueble especializado en el desarrollo de las artes plásticas y visuales. Este espacio está destinado a la impartición de talleres prácticos, tales como dibujo y pintura, proporcionando a la comunidad un entorno adecuado para la formación artística y la libre expresión creativa bajo la supervisión de la Coordinación Cultural.",
+      "imagen": "img/edificios/edificio 34.webp",
+      "instalaciones": [
+        "Talleres prácticos para dibujo y pintura.",
+        "Material para talleres y ensayos."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068175,
+        -98.169059
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 35,
+      "nombre": "Edificio 35",
+      "descripcion": "Inmueble especializado en el estudio y aplicación de sistemas electrónicos. Sus instalaciones están diseñadas para el desarrollo de prácticas de diseño de circuitos, instrumentación y control, proporcionando a los estudiantes la infraestructura tecnológica necesaria para la experimentación y el desarrollo de proyectos de ingeniería.",
+      "imagen": "img/edificios/edificio 35.webp",
+      "instalaciones": [
+        "Laboratorio de electrónica con equipos de diseño de circuitos, instrumentación y control.",
+        "Material para experimentación y desarrollo de proyectos de ingeniería."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068176,
+        -98.168952
+      ],
+      "tipo": "laboratorio",
+      "imagen_360": "img/360/Laboratorio_de_electrónica_.webp"
+    },
+    {
+      "id": 36,
+      "nombre": "Edificio 36",
+      "descripcion": "El Edificio 36 alberga el Laboratorio de Ingenieria en Tecnologias de la Informacion y comunicaciones, es un espacio especializado diseñado para el desarrollo práctico de competencias en áreas clave como redes de computadoras, programación, bases de datos, telecomunicaciones, ciberseguridad, sistemas embebidos e internet de las cosas (IoT).",
+      "imagen": "img/edificios/edificio 36.webp",
+      "instalaciones": [
+        "Laboratorio de redes y telecomunicaciones con equipos Cisco y simuladores como Packet Tracer.",
+        "Sala de cómputo equipada con software de desarrollo, programación y análisis de datos.",
+        "Aulas teóricas con proyector y pizarras digitales para clases magistrales.",
+        "Conectividad inalámbrica de alta velocidad en todo el laboratorio."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068163,
+        -98.17027
+      ],
+      "tipo": [
+        "laboratorio",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_36.webp"
+    },
+    {
+      "id": 37,
+      "nombre": "Edificio 37",
+      "descripcion": "Instalación de infraestructura técnica encargada de la recepción, transformación y distribución de energía eléctrica para las diversas áreas del plantel. Este inmueble es fundamental para garantizar el suministro energético constante y seguro que requieren los laboratorios, aulas y oficinas administrativas.",
+      "imagen": "img/edificios/edificio 37.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067984,
+        -98.170599
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 38,
+      "nombre": "Edificio 38",
+      "descripcion": "Inmueble de servicios múltiples que funge como sede de la Coordinación Deportiva. Sus instalaciones integran salones especializados para el entrenamiento de diversas disciplinas, áreas de vestidores y servicios sanitarios. Asimismo, el edificio alberga el Cuarto de Máquinas, espacio técnico esencial para el soporte y mantenimiento de la infraestructura del plantel.",
+      "imagen": "img/edificios/edificio 38.webp",
+      "instalaciones": [
+        "Salones especializados para el entrenamiento de diversas disciplinas.",
+        "Áreas de vestidores.",
+        "Servicios sanitarios."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067226,
+        -98.168782
+      ],
+      "tipo": [
+        "baños",
+        "otro"
+      ]
+    },
+    {
+      "id": 39,
+      "nombre": "Edificio 39",
+      "descripcion": "Inmueble destinado al resguardo y gestión de materiales, vestuarios y equipos pertenecientes a la Coordinación Cultural. Este espacio funciona como soporte logístico para las presentaciones, talleres y eventos artísticos del plantel, garantizando la conservación y organización de los insumos necesarios para la difusión cultural.",
+      "imagen": "img/edificios/edificio 39.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067036,
+        -98.168557
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 40,
+      "nombre": "Edificio 40",
+      "descripcion": "Inmueble diseñado para fortalecer el área de estudios avanzados y la generación de conocimiento. Este espacio está proyectado para albergar actividades de investigación científica y tecnológica, proporcionando a los estudiantes de posgrado y docentes las instalaciones necesarias para el desarrollo de proyectos académicos de alto impacto.",
+      "imagen": "img/edificios/edificio 40.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067282,
+        -98.170378
+      ],
+      "tipo": "laboratorio"
+    },
+    {
+      "id": 41,
+      "nombre": "Edificio 41",
+      "descripcion": "Inmueble diseñado para el desarrollo de competencias comunicativas y técnicas. Alberga el Laboratorio de Lenguas Extranjeras y el Laboratorio de Ingeniería en Logística, integrando espacios para la práctica especializada y aulas destinadas a la impartición de cátedra en ambas disciplinas. Asimismo, el edificio cuenta con servicios sanitarios y una infraestructura que permite tanto el aprendizaje de idiomas como el análisis de procesos logísticos en un entorno académico compartido.",
+      "imagen": "img/edificios/edificio 41.webp",
+      "instalaciones": [
+        "Laboratorio de Lenguas Extranjeras",
+        "Laboratorio de Ingeniería en Logística",
+        "Servicios sanitarios para hombres y mujeres.",
+        "Oficina del Subdirector de Coordinación Académica."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.071208,
+        -98.169903
+      ],
+      "tipo": [
+        "laboratorio",
+        "administrativo",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_41.webp"
+    },
+    {
+      "id": 42,
+      "nombre": "Edificio 42",
+      "descripcion": "Inmueble que alberga las oficinas e instalaciones de la Secretaría de Educación Pública (SEP) Federal dentro del plantel. Este edificio es un núcleo estratégico donde se llevan a cabo diversos procesos administrativos y funciones de gestión; asimismo, cuenta con espacios habilitados para la impartición de cátedra, integrando así la operatividad gubernamental con la actividad académica del instituto.",
+      "imagen": "img/edificios/edificio 42.webp",
+      "instalaciones": [
+        "Oficinas de la Secretaría de Educación Pública (SEP) Federal."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.071135,
+        -98.169291
+      ],
+      "tipo": "administrativo"
+    },
+    {
+      "id": 43,
+      "nombre": "Edificio 43",
+      "descripcion": "Inmueble destinado a la gestión logística y operativa del plantel. Este edificio alberga las oficinas y áreas de resguardo encargadas de la administración de bienes muebles, suministros y servicios generales. Su función es garantizar el correcto funcionamiento de la infraestructura institucional, el mantenimiento de las instalaciones y el control de los insumos necesarios para la operación diaria de la comunidad académica y administrativa.",
+      "imagen": "img/edificios/edificio 43.webp",
+      "instalaciones": [
+        "Oficinas de resguardo y administración de bienes muebles, suministros y servicios generales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0670547,
+        -98.1706309
+      ],
+      "tipo": "administrativo"
+    },
+    {
+      "id": 44,
+      "nombre": "Edificio 44",
+      "descripcion": "Inmueble de infraestructura técnica especializada en la regulación y suministro de energía eléctrica. Esta instalación funciona como una unidad de soporte estratégico para garantizar la continuidad del servicio eléctrico en los diversos sectores del plantel, permitiendo la operación ininterrumpida de laboratorios, equipos de alta tecnología y áreas administrativas.",
+      "imagen": "img/edificios/edificio 44.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.071905,
+        -98.169451
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 45,
+      "nombre": "Edificio 45",
+      "descripcion": "Este inmueble constituye un centro integral para la formación de profesionales en Ingeniería Industrial. Sus instalaciones albergan el Laboratorio de Ingeniería Industrial, diseñado para la ejecución de prácticas especializadas, así como aulas para la impartición de cátedra, oficinas administrativas para la gestión académica del departamento y servicios sanitarios. Es un espacio multidisciplinario que integra la teoría, la experimentación y la administración en un solo complejo.",
+      "imagen": "img/edificios/edificio 45.webp",
+      "instalaciones": [
+        "Laboratorio de Ingeniería Industrial",
+        "Oficinas administrativas",
+        "Servicios sanitarios"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070917,
+        -98.168811
+      ],
+      "tipo": [
+        "laboratorio",
+        "administrativo",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_45.webp"
+    },
+    {
+      "id": 46,
+      "nombre": "Edificio 46",
+      "descripcion": "Instalación técnica de soporte diseñada para el suministro y regulación de energía eléctrica de la Unidad Académica Departamental. Este inmueble garantiza la potencia necesaria para el funcionamiento de los equipos especializados de los laboratorios de Ingeniería Industrial, así como la iluminación y servicios de las aulas y oficinas administrativas circundantes.",
+      "imagen": "img/edificios/edificio 46.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070816,
+        -98.168218
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 47,
+      "nombre": "Edificio 47",
+      "descripcion": "Sede administrativa y operativa del departamento encargado de la gestión de riesgos. Desde aquí se coordinan los protocolos de seguridad, brigadas de emergencia y acciones de prevención para salvaguardar la integridad de la comunidad estudiantil y docente",
+      "imagen": "img/edificios/edificio 47.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06709,
+        -98.168774
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Edificio_47.webp"
+    },
+    {
+      "id": 48,
+      "nombre": "Edificio 48",
+      "descripcion": "Inmueble destinado al resguardo y gestión de materiales, herramientas e insumos necesarios para el mantenimiento integral del plantel. Este espacio es fundamental para la operatividad diaria, ya que provee los recursos requeridos por las brigadas de servicios generales para la reparación, conservación y mejora de las instalaciones eléctricas, hidráulicas y de infraestructura física del campus.",
+      "imagen": "img/edificios/edificio 48.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0670829,
+        -98.1705089
+      ],
+      "tipo": "otro"
+    },
+    {
+      "id": 49,
+      "nombre": "Edificio 49",
+      "descripcion": "Este inmueble constituye un espacio avanzado para la experimentación y el diseño tecnológico. Cuenta con instalaciones equipadas para el desarrollo de prácticas en áreas como microcontroladores, robótica, telecomunicaciones y sistemas digitales. Es un centro clave donde los estudiantes aplican conocimientos teóricos en la creación de prototipos y la resolución de problemas técnicos propios de la ingeniería moderna.",
+      "imagen": "img/edificios/labo electronica.webp",
+      "instalaciones": [
+        "Materiales y herramientas para el desarrollo de prácticas en áreas como microcontroladores, robótica, telecomunicaciones y sistemas digitales."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069142,
+        -98.168277
+      ],
+      "tipo": "laboratorio"
+    },
+    {
+      "id": 50,
+      "nombre": "Edificio 50",
+      "descripcion": "Este inmueble es el núcleo académico fundamental para el estudio y la investigación. Sus instalaciones ofrecen un entorno integral que incluye amplias salas de lectura, cubículos de estudio grupal e individual, así como aulas destinadas a la actividad académica. El centro proporciona acceso a equipos de cómputo para el desarrollo de tareas y proyectos, un sistema de préstamo de acervo bibliográfico especializado y servicios sanitarios para los usuarios. Es un espacio diseñado para fomentar el aprendizaje autónomo y el acceso democrático al conocimiento.",
+      "imagen": "img/edificios/centro de informacion.webp",
+      "instalaciones": [
+        "Espacios para estudio individual y grupal.",
+        "Aulas destinadas a la actividad académica.",
+        "Acceso a equipos de cómputo para el desarrollo de tareas y proyectos.",
+        "Sistema de préstamo de acervo bibliográfico especializado.",
+        "Servicios sanitarios para los usuarios."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067422488611665,
+        -98.169682206123
+      ],
+      "tipo": [
+        "aula",
+        "baños",
+        "otro"
+      ],
+      "imagen_360": "img/360/Edificio_50.webp"
+    },
+    {
+      "id": 51,
+      "nombre": "Edificio 51",
+      "descripcion": "Inmueble especializado que funge como la sede académica para la formación de profesionales en el área mecánica. El edificio está diseñado para la impartición de cátedra y el desarrollo de actividades académicas teóricas, contando con aulas equipadas y servicios sanitarios. Es un espacio clave donde se concentran los recursos pedagógicos y la atención a estudiantes de esta disciplina, integrando el aprendizaje en aula con la visión técnica de la carrera.",
+      "imagen": "img/edificios/edificio 51.webp",
+      "instalaciones": [
+        "Aulas equipadas para la impartición de cátedra y el desarrollo de actividades académicas teóricas.",
+        "Servicios sanitarios para los usuarios."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.071552,
+        -98.169811
+      ],
+      "tipo": [
+        "laboratorio",
+        "baños"
+      ],
+      "imagen_360": "img/360/Edificio_51.webp"
+    },
+    {
+      "id": 52,
+      "nombre": "Edificio 52 (sala de titulacion)",
+      "descripcion": "Inmueble emblemático destinado a la fase final del proceso académico de la comunidad estudiantil. En este recinto se llevan a cabo los protocolos de titulación, la entrega de grados académicos y la formalización de trámites finales para el egreso. Es un espacio diseñado para ceremonias oficiales, donde se valida y celebra la culminación de la formación profesional de los graduados.",
+      "imagen": "img/edificios/titulacion.webp",
+      "instalaciones": [
+        ""
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.069555,
+        -98.169899
+      ],
+      "tipo": "administrativo",
+      "imagen_360": "img/360/Sala_de_titulacion.webp"
+    },
+    {
+      "id": 53,
+      "nombre": "Edificio 53",
+      "descripcion": "Considerado el inmueble de mayor capacidad y extensión del plantel, este edificio constituye el eje pedagógico central, ya que en sus instalaciones convergen estudiantes de todos los programas académicos para cursar las asignaturas de ciencias básicas. El complejo cuenta con una amplia infraestructura de aulas, servicios sanitarios y un elevador diseñado para garantizar la accesibilidad de personas con movilidad reducida. Asimismo, alberga dos auditorios equipados para el desarrollo de conferencias, juntas de academia y eventos institucionales de gran relevancia.",
+      "imagen": "img/edificios/edificio 53.webp",
+      "instalaciones": [
+        "Aulas teóricas con proyector y pizarras digitales para clases magistrales.",
+        "Conectividad inalámbrica de alta velocidad en todo el laboratorio.",
+        "Elevador diseñado para garantizar la accesibilidad de personas con movilidad reducida.",
+        "Auditorios equipados para el desarrollo de conferencias, juntas de academia y eventos institucionales de gran relevancia.",
+        "Servicios sanitarios para los usuarios."
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.070834,
+        -98.169673
+      ],
+      "tipo": [
+        "aula",
+        "baños",
+        "otros"
+      ],
+      "imagen_360": "img/360/Gimnasio_.webp"
+    }
+  ],
+  "canchas": [
+    {
+      "id": 100,
+      "nombre": "Cancha Deportiva Mixta (Domo)",
+      "descripcion": "Complejo deportivo integral compuesto por seis canchas de uso múltiple, diseñadas para la práctica de diversas disciplinas, principalmente basquetbol. El área destaca por su estructura de domo que cubre la totalidad de la superficie, permitiendo la actividad física, eventos institucionales y torneos deportivos bajo condiciones climáticas controladas. Es un espacio clave para el fomento de la salud, la recreación y la integración de la comunidad estudiantil.",
+      "imagen": "img/edificios/Domo.webp",
+      "instalaciones": [
+        "Tableros de basquetbol",
+        "Iluminación nocturna",
+        "Domo que cubre la totalidad de la superficie"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.066094641374725,
+        -98.16800411738848
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 108,
+      "nombre": "Canchas Deportivas Mixtas",
+      "descripcion": "Área deportiva exterior conformada por cuatro canchas de usos múltiples equipadas con tableros. Este espacio está diseñado para soportar diversas actividades recreativas y entrenamientos deportivos de manera simultánea, permitiendo a la comunidad estudiantil la práctica de basquetbol, voleibol y otras disciplinas. Su disposición abierta fomenta la convivencia y el desarrollo físico en un entorno dinámico y accesible dentro del campus.",
+      "imagen": "img/edificios/canchabasquet.webp",
+      "instalaciones": [
+        "Tableros de basquetbol",
+        "Redes de voleibol",
+        "Porterias de futbol"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06806486608499,
+        -98.16959814860068
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 99,
+      "nombre": "Canchas de Tenis",
+      "descripcion": "Espacio deportivo especializado compuesto por dos canchas diseñadas para la práctica y el entrenamiento del tenis. Estas instalaciones permiten el desarrollo de habilidades técnicas y la competencia en esta disciplina, ofreciendo a los estudiantes una opción deportiva adicional para su formación integral y recreación dentro de un entorno reglamentario.",
+      "imagen": "img/edificios/canchatenis.webp",
+      "instalaciones": [
+        "Redes de tenis"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.065808409574363,
+        -98.16741047254938
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 98,
+      "nombre": "Pista de Atletismo y Cancha de Futbol Sintetico",
+      "descripcion": "Instalación deportiva de alto rendimiento que combina una pista de atletismo perimetral con una cancha central de pasto sintético. Este complejo está diseñado para el entrenamiento de pruebas de pista y campo, así como para la práctica de fútbol y otros deportes. Su infraestructura permite el uso intensivo y versátil, brindando condiciones óptimas para el desarrollo físico y las competencias de los representativos institucionales.",
+      "imagen": "img/edificios/pista.webp",
+      "instalaciones": [
+        "Pista de atletismo",
+        "Cancha de futbol sintetico",
+        "Porterias de futbol",
+        "Iluminacion nocturna",
+        "Gradas"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06722172383431,
+        -98.16824282223368
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 107,
+      "nombre": "Cancha de Futbol Rápido",
+      "descripcion": "Es un área deportiva equipada con pasto sintético y bardas perimetrales, diseñada para que el juego sea más ágil y constante. Este espacio es ideal tanto para los entrenamientos de los equipos de la escuela como para las retas y torneos entre alumnos, ofreciendo una instalación segura y dinámica para quienes disfrutan de esta modalidad de fútbol.",
+      "imagen": "img/edificios/futbolrapido.webp",
+      "instalaciones": [
+        "Pasto sintetico",
+        "Bardas perimetrales",
+        "Iluminacion nocturna",
+        "Porterias de futbol"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.068391772229795,
+        -98.16790330672536
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 103,
+      "nombre": "Cancha de Beisbol",
+      "descripcion": "Cuenta con un campo acondicionado para los entrenamientos y juegos de los equipos de la institución, ofreciendo a los estudiantes un área abierta y reglamentaria para desarrollar sus habilidades en esta disciplina.",
+      "imagen": "img/edificios/canchabeisbol.webp",
+      "instalaciones": [
+        "Campo de beisbol",
+        "Bancas"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067587601678948,
+        -98.1667599593747
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 105,
+      "nombre": "Cancha de Softbol",
+      "descripcion": "Es un espacio diseñado específicamente para la práctica de esta disciplina, contando con las dimensiones y el terreno adecuado para el juego. Al ser un área compartida por estudiantes y selectivos, ofrece un entorno ideal para el entrenamiento de técnica y estrategia",
+      "imagen": "img/edificios/canchasoftball.webp",
+      "instalaciones": [
+        "Campo de softbol",
+        "Bancas"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.0682332649109,
+        -98.16738681472333
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 104,
+      "nombre": "Gimnasio (Cancha de Basquetbol y Voleibol)",
+      "descripcion": "Es el recinto techado más versátil del campus, equipado con una superficie de duela profesional para la práctica de basquetbol y voleibol. Gracias a su amplia zona de gradas, es el punto de encuentro principal para torneos deportivos y eventos de gran magnitud, como inauguraciones, juntas generales y conferencias magnas. Sus instalaciones están diseñadas para recibir a una gran parte de la comunidad estudiantil, funcionando como el corazón de la vida deportiva y social del instituto.",
+      "imagen": "img/edificios/gimnasio.webp",
+      "instalaciones": [
+        "Cancha de basquetbol",
+        "Tableros de basquetbol",
+        "Iluminacion nocturna",
+        "Gradas",
+        "Servicios sanitarios"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067434433912098,
+        -98.16915974690558
+      ],
+      "tipo": [
+        "deportivo",
+        "baños",
+        "otros"
+      ]
+    },
+    {
+      "id": 106,
+      "nombre": "Canchas Futbol",
+      "descripcion": "Este complejo deportivo cuenta con cuatro campos de grandes dimensiones diseñados para el uso polivalente. Son el escenario principal tanto para el fútbol como para los entrenamientos y partidos de fútbol americano. Gracias a su amplitud y superficie, estas canchas permiten que los equipos representativos de ambas disciplinas realicen sus prácticas tácticas y encuentros oficiales, siendo un área clave para el desarrollo del deporte de conjunto en la institución.",
+      "imagen": "img/edificios/canchasfutbol.webp",
+      "instalaciones": [
+        "Canchas de futbol",
+        "Porterias de futbol",
+        "Iluminacion nocturna"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.06916117584222,
+        -98.1672068024337
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 102,
+      "nombre": "Canchas de Voleibol Playero",
+      "descripcion": "Es un espacio deportivo diseñado específicamente con una superficie de arena fina para la práctica de esta modalidad de voleibol. Estas canchas ofrecen a los estudiantes un entorno diferente y dinámico para el ejercicio al aire libre, permitiendo tanto el entrenamiento de los equipos que compiten en esta categoría como el uso recreativo.",
+      "imagen": "img/edificios/canchavoley.webp",
+      "instalaciones": [
+        "Canchas de voleibol playero",
+        "Redes de voleibol",
+        "Iluminacion nocturna"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067932992219326,
+        -98.16859270209538
+      ],
+      "tipo": "deportivo"
+    },
+    {
+      "id": 101,
+      "nombre": "Alberca",
+      "descripcion": "Es una instalación deportiva al aire libre diseñada para la práctica de la natación y el acondicionamiento físico acuático. Este espacio permite a los estudiantes desarrollar habilidades en los distintos estilos de nado, ya sea como parte de sus actividades recreativas o como preparación para competencias. Al ser un área abierta, ofrece un entorno refrescante y dinámico para el esparcimiento y el entrenamiento deportivo bajo el sol.",
+      "imagen": "img/edificios/alberca.webp",
+      "instalaciones": [
+        "Piscina",
+        "Iluminacion nocturna",
+        "Vestidores",
+        "Regaderas",
+        "Servicios sanitarios",
+        "Gradas",
+        "Trampolines"
+      ],
+      "horario": "Horario no especificado",
+      "coords": [
+        19.067544691943034,
+        -98.16857307729416
+      ],
+      "tipo": [
+        "deportivo",
+        "baños",
+        "otros"
+      ]
+    }
+  ]
+}

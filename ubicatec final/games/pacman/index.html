@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>HTML5 Pacman</title>
+    
+    <style type="text/css">
+      @font-face {
+	    font-family: 'BDCartoonShoutRegular';
+        src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+	    font-weight: normal;
+	    font-style: normal;
+      }
+      body { 
+        width: 100%; 
+        height: 100vh; 
+        margin: 0; 
+        font-family: 'BDCartoonShoutRegular', sans-serif; 
+        background: #000; 
+        overflow: hidden; 
+        display: flex; 
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center;
+        color: #fff;
+        touch-action: none; /* Previene scroll y zoom */
+      }
+      #pacman {
+        height: 430px;
+        width: 342px;
+        position: relative;
+        flex-shrink: 0;
+        transform-origin: top center;
+      }
+      #shim { 
+        font-family: BDCartoonShoutRegular; 
+        position: absolute;
+        visibility: hidden;
+      }
+
+      /* Mobile Controls Layout */
+      .mobile-controls {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        width: 100%;
+        max-width: 380px;
+        padding: 0 20px 10px;
+        margin-top: 10px;
+        box-sizing: border-box;
+        min-height: 230px;
+        gap: 12px;
+      }
+
+      /* Center: Arrow D-Pad */
+      .dpad {
+        display: grid;
+        grid-template-areas: 
+          ". up ."
+          "left . right"
+          ". down .";
+        gap: 10px;
+        z-index: 5;
+      }
+      .control-btn {
+        width: 60px;
+        height: 60px;
+        background: rgba(241, 196, 15, 0.15);
+        border: 2px solid #f1c40f;
+        border-radius: 12px;
+        color: #f1c40f;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .control-btn:active {
+        background: rgba(241, 196, 15, 0.4);
+        transform: scale(0.95);
+      }
+      #btn-up { grid-area: up; }
+      #btn-down { grid-area: down; }
+      #btn-left { grid-area: left; }
+      #btn-right { grid-area: right; }
+
+      .gesture-pad {
+        width: min(280px, 72vw);
+        height: min(280px, 72vw);
+        border: 2px solid rgba(241, 196, 15, 0.7);
+        border-radius: 16px;
+        background: rgba(241, 196, 15, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: none;
+        z-index: 5;
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: center;
+      }
+      .gesture-pad .gesture-hint {
+        color: rgba(241, 196, 15, 0.85);
+        font-family: 'BDCartoonShoutRegular', sans-serif;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.2;
+        padding: 0 12px;
+        pointer-events: none;
+      }
+
+      /* Bottom Right: Small Start Button */
+      .start-container {
+        position: static;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        align-self: center;
+      }
+      .start-btn {
+        width: 55px;
+        height: 55px;
+        background: #f1c40f;
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        font-family: 'BDCartoonShoutRegular', sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 3px 0 #d4ac0d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1;
+        z-index: 10;
+      }
+      .start-btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 #d4ac0d;
+      }
+
+      /* Scoreboard Styles (Similar to Flappy Bird) */
+      #pacman-scoreboard-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        max-width: 320px;
+        background: rgba(0, 0, 0, 0.95);
+        border: 4px solid #f1c40f;
+        border-radius: 15px;
+        padding: 20px;
+        z-index: 10010;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+      }
+      #pacman-scoreboard-container h2 {
+        color: #f1c40f;
+        font-family: 'BDCartoonShoutRegular', sans-serif;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+      .scoreboard-list {
+        margin-bottom: 20px;
+        max-height: 250px;
+        overflow-y: auto;
+      }
+      .scoreboard-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+        font-size: 14px;
+      }
+      .scoreboard-item .rank { color: #f1c40f; width: 30px; text-align: left; }
+      .scoreboard-item .name { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .scoreboard-item .score-val { color: #f1c40f; font-weight: bold; }
+
+      #new-record-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 10020;
+        align-items: center;
+        justify-content: center;
+      }
+      .record-content {
+        background: #000;
+        border: 4px solid #f1c40f;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        width: 80%;
+        max-width: 300px;
+      }
+      .record-content h2 { color: #f1c40f; margin-bottom: 10px; font-size: 20px; }
+      .record-content p { margin-bottom: 20px; }
+      #player-name-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        background: #222;
+        border: 2px solid #f1c40f;
+        border-radius: 8px;
+        color: #fff;
+        font-family: 'BDCartoonShoutRegular', sans-serif;
+        text-align: center;
+      }
+      #save-score-btn {
+        background: #f1c40f;
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-family: 'BDCartoonShoutRegular', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .global-scores-btn {
+        position: static;
+        background: rgba(241, 196, 15, 0.2);
+        border: 1px solid #f1c40f;
+        color: #f1c40f;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 10px;
+        cursor: pointer;
+        z-index: 12;
+        touch-action: manipulation;
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        align-self: start;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 360px) {
+        .mobile-controls {
+          min-height: 260px;
+        }
+        .gesture-pad {
+          width: min(280px, 78vw);
+          height: min(280px, 78vw);
+        }
+        .start-container {
+          grid-column: 2;
+        }
+      }
+
+      /* Scaling for small screens */
+      @media (max-height: 680px) {
+        #pacman {
+          transform: scale(0.75);
+          margin-bottom: -90px;
+        }
+        .control-btn {
+          width: 50px;
+          height: 50px;
+        }
+        .mobile-controls {
+          min-height: 200px;
+        }
+      }
+    </style>
+
+</head>
+
+<body>
+  
+  <div id="shim">shim for font face</div>
+
+  <div id="pacman"></div>
+
+  <!-- Mobile Controls -->
+  <div class="mobile-controls">
+    <button class="global-scores-btn" id="btn-scores">GLOBAL SCORES</button>
+    
+    <div class="gesture-pad" id="gesture-pad">
+      <div class="gesture-hint">DESLIZA PARA MOVER</div>
+    </div>
+
+    <!-- Start Bottom Right -->
+    <div class="start-container">
+      <button class="start-btn" id="btn-start">START</button>
+    </div>
+  </div>
+
+  <!-- Scoreboard UI -->
+  <div id="pacman-scoreboard-container">
+    <h2>TOP PACMAN</h2>
+    <div class="scoreboard-list" id="pacman-scoreboard-list"></div>
+    <button onclick="document.getElementById('pacman-scoreboard-container').style.display='none'" 
+            style="background:#f1c40f; color:#000; border:none; padding:8px 20px; border-radius:10px; font-family:'BDCartoonShoutRegular'; font-size:12px; cursor:pointer;">
+        CERRAR
+    </button>
+  </div>
+
+  <div id="new-record-modal">
+    <div class="record-content">
+        <h2>NUEVO RECORD</h2>
+        <p>Score: <span id="record-score-display">0</span></p>
+        <input type="text" id="player-name-input" placeholder="Tu Nombre..." maxlength="12">
+        <button id="save-score-btn">GUARDAR</button>
+    </div>
+  </div>
+
+  <script type="module" src="../../js/metrics.js"></script>
+  <script nomodule defer src="../../js/metrics-legacy.js"></script>
+  <script src="pacman.js"></script>
+  <script src="modernizr-1.5.min.js"></script>
+
+  <!-- Firebase Integration -->
+  <script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+      "firebase/database": "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "firebase/app";
+    import { getDatabase, ref, set, get, onValue, query, orderByChild, limitToLast } from "firebase/database";
+    import { getAuth, signInAnonymously } from "firebase/auth";
+
+    const firebaseConfig = { 
+        apiKey: "AIzaSyAVr9LEZaxuC1HSxDF2zdE0Y-1Q9qlmp00", 
+        authDomain: "ubicatec-scores.firebaseapp.com", 
+        databaseURL: "https://ubicatec-scores-default-rtdb.firebaseio.com", 
+        projectId: "ubicatec-scores", 
+        storageBucket: "ubicatec-scores.firebasestorage.app", 
+        messagingSenderId: "883273877501", 
+        appId: "1:883273877501:web:0b505be5302e117a1d7b94", 
+        measurementId: "G-MF5WCW3E12" 
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    signInAnonymously(auth).catch((error) => console.error("Auth Error", error));
+    let globalScores = [];
+
+    // Load Scores
+    function loadScores() {
+        console.log("Cargando scores de Pacman desde Firebase...");
+        const scoresRef = query(ref(db, 'pacman_scores'), orderByChild('score'), limitToLast(10));
+        onValue(scoresRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                globalScores = Object.values(data).sort((a, b) => b.score - a.score);
+                console.log("Scores de Pacman cargados:", globalScores);
+            } else {
+                console.log("No hay scores de Pacman, inicializando...");
+                // Initialize default
+                for(let i=1; i<=10; i++) {
+                    set(ref(db, 'pacman_scores/default_' + i), { name: "Player " + i, score: 1 });
+                }
+                globalScores = Array.from({ length: 10 }, (_, i) => ({ name: "Player " + (i + 1), score: 1 }));
+            }
+        }, (error) => {
+            console.error("Error al cargar scores de Pacman desde Firebase:", error);
+            globalScores = Array.from({ length: 10 }, (_, i) => ({ name: "Player " + (i + 1), score: 1 }));
+        });
+    }
+
+    window.showPacmanScoreboard = function() {
+        const container = document.getElementById('pacman-scoreboard-container');
+        if (!container) return;
+        
+        const list = document.getElementById('pacman-scoreboard-list');
+        list.innerHTML = '';
+        globalScores.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'scoreboard-item';
+            div.innerHTML = `<span class="rank">${index+1}</span><span class="name"></span><span class="score-val">${item.score}</span>`;
+            div.querySelector('.name').textContent = item.name;
+            list.appendChild(div);
+        });
+        container.style.display = 'block';
+    }
+
+    window.checkPacmanRecord = function(score) {
+        console.log("Verificando record para score:", score);
+        // Si no hay scores aún (cargando), permitir registro si score > 0
+        const isTopTen = globalScores.length < 10 || score > globalScores[globalScores.length - 1].score;
+        
+        if (isTopTen && score > 0) {
+            console.log("¡Nuevo record detectado!");
+            document.getElementById('record-score-display').textContent = score;
+            document.getElementById('new-record-modal').style.display = 'flex';
+            
+            document.getElementById('save-score-btn').onclick = () => {
+                const name = document.getElementById('player-name-input').value.trim() || "Anonimo";
+                const newKey = Date.now();
+                set(ref(db, 'pacman_scores/' + newKey), { name, score }).then(() => {
+                    console.log("Record de Pacman guardado exitosamente");
+                    document.getElementById('new-record-modal').style.display = 'none';
+                    window.showPacmanScoreboard();
+                }).catch(err => {
+                    console.error("Error al guardar record:", err);
+                    globalScores = [{ name, score }].concat(globalScores).sort((a, b) => b.score - a.score).slice(0, 10);
+                    document.getElementById('new-record-modal').style.display = 'none';
+                    window.showPacmanScoreboard();
+                });
+            };
+        } else {
+            console.log("No superó el top 10 o score es 0");
+        }
+    }
+
+    loadScores();
+    document.getElementById('btn-scores').onclick = window.showPacmanScoreboard;
+  </script>
+
+  <script>
+    function simulateKey(code) {
+        // Usar KeyboardEvent para mejor compatibilidad con scripts que escuchan eventos de teclado
+        const event = new KeyboardEvent('keydown', {
+            key: getKeyboardKeyName(code),
+            keyCode: code,
+            which: code,
+            code: getKeyboardKeyCode(code),
+            bubbles: true,
+            cancelable: true
+        });
+        document.dispatchEvent(event);
+    }
+
+    function getKeyboardKeyName(code) {
+        switch(code) {
+            case 37: return 'ArrowLeft';
+            case 38: return 'ArrowUp';
+            case 39: return 'ArrowRight';
+            case 40: return 'ArrowDown';
+            case 78: return 'n';
+            default: return '';
+        }
+    }
+
+    function getKeyboardKeyCode(code) {
+        switch(code) {
+            case 37: return 'ArrowLeft';
+            case 38: return 'ArrowUp';
+            case 39: return 'ArrowRight';
+            case 40: return 'ArrowDown';
+            case 78: return 'KeyN';
+            default: return '';
+        }
+    }
+
+    // Set up control listeners
+    const buttons = { 'btn-start': 78 };
+
+    Object.keys(buttons).forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                simulateKey(buttons[id]);
+            }, { passive: false });
+            
+            btn.addEventListener('mousedown', (e) => {
+                simulateKey(buttons[id]);
+            });
+        }
+    });
+
+    (function () {
+        const pad = document.getElementById('gesture-pad');
+        if (!pad) return;
+
+        const threshold = 22;
+        const cooldownMs = 120;
+        let startX = 0;
+        let startY = 0;
+        let lastFire = 0;
+        let active = false;
+
+        function getPoint(evt) {
+            if (evt.touches && evt.touches[0]) return { x: evt.touches[0].clientX, y: evt.touches[0].clientY };
+            if (evt.changedTouches && evt.changedTouches[0]) return { x: evt.changedTouches[0].clientX, y: evt.changedTouches[0].clientY };
+            return { x: evt.clientX, y: evt.clientY };
+        }
+
+        function fireDirection(dx, dy) {
+            if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) return false;
+            const now = Date.now();
+            if (now - lastFire < cooldownMs) return true;
+            lastFire = now;
+            if (Math.abs(dx) > Math.abs(dy)) {
+                simulateKey(dx > 0 ? 39 : 37);
+            } else {
+                simulateKey(dy > 0 ? 40 : 38);
+            }
+            return true;
+        }
+
+        function onStart(evt) {
+            active = true;
+            const p = getPoint(evt);
+            startX = p.x;
+            startY = p.y;
+            try { evt.preventDefault(); } catch (e) {}
+        }
+
+        function onMove(evt) {
+            if (!active) return;
+            const p = getPoint(evt);
+            const dx = p.x - startX;
+            const dy = p.y - startY;
+            if (fireDirection(dx, dy)) {
+                startX = p.x;
+                startY = p.y;
+            }
+            try { evt.preventDefault(); } catch (e) {}
+        }
+
+        function onEnd() {
+            active = false;
+        }
+
+        if (window.PointerEvent) {
+            pad.addEventListener('pointerdown', onStart, { passive: false });
+            pad.addEventListener('pointermove', onMove, { passive: false });
+            pad.addEventListener('pointerup', onEnd);
+            pad.addEventListener('pointercancel', onEnd);
+        } else {
+            pad.addEventListener('touchstart', onStart, { passive: false });
+            pad.addEventListener('touchmove', onMove, { passive: false });
+            pad.addEventListener('touchend', onEnd);
+            pad.addEventListener('touchcancel', onEnd);
+            pad.addEventListener('mousedown', onStart);
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+        }
+    })();
+
+    var el = document.getElementById("pacman");
+
+    if (Modernizr.canvas && Modernizr.localstorage && 
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else { 
+      el.innerHTML = "Sorry, needs a decent browser<br /><small>" + 
+        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+  </script>
+
+</body>
+</html>

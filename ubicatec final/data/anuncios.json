@@ -1,0 +1,17 @@
+{
+  "anuncios": [
+    {
+      "id": "bienvenida-2026",
+      "publicado": false,
+      "titulo": "Bienvenido al semestre Enero-Junio 2026",
+      "mensaje_html": "<p>Este es un anuncio de ejemplo. Puedes activarlo cambiando <strong>publicado</strong> a <strong>true</strong>.</p>",
+      "badge": "AVISO",
+      "boton_texto": "Más información",
+      "url": "",
+      "inicio": "",
+      "fin": "",
+      "auto_abrir": false,
+      "prioridad": 0
+    }
+  ]
+}

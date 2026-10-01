@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<!-- 
+  UBICATEC - Página Principal (index.html)
+  
+  Descripción:
+  Página de aterrizaje (Landing Page) de la plataforma Ubicatec.
+  Presenta la introducción al sistema, navegación principal y acceso a las funcionalidades clave.
+  
+  Estructura:
+  1. Head: Metadatos, estilos y fuentes.
+  2. Navbar Desktop: Navegación superior para escritorio.
+  3. Hero Section: Sección principal con animación de scroll (Logo -> Contenido).
+  4. Notifications: Contenedor para avisos del sistema.
+  5. Mobile Nav: Barra de navegación flotante para dispositivos móviles.
+  6. Scripts: Carga de librerías y lógica de la página.
+-->
+<html lang="zxx" class="no-js">
+<head>
+    <!-- =========================================
+         METADATOS Y ESTILOS
+         ========================================= -->
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <!-- PWA Safe Area Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/fav.png">
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib">
+    <!-- Meta Description -->
+    <meta name="description" content="Plataforma de geolocalización y navegación inteligente para el campus del Tecnológico de Puebla. Encuentra aulas, laboratorios y oficinas fácilmente.">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="Ubicatec, Tec de Puebla, ITP, Mapa, Geolocalización, Campus, Navegación, Estudiantes">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Android StatusBar Color -->
+    <meta name="theme-color" content="#004a99">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004a99">
+
+    <!-- Site Title -->
+    <title>Ubicatec - Guía Inteligente del Campus</title>
+
+    <!-- Fuentes de Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Librerías de Iconos y Estilos -->
+    <link rel="stylesheet" href="vendor/linearicons/icon-font.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+
+    <!-- Estilos Propios -->
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+
+
+    <!-- CSS para Toggle del Juego -->
+
+
+    <style>
+        /* Contenedor de Botones Superiores (Notificaciones y Juegos) */
+        .top-action-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 9998;
+        }
+
+        .top-action-buttons-left {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 9998;
+        }
+
+        /* Estilos base para los botones flotantes superiores */
+        .action-fab {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+        }
+        .action-fab:hover { transform: scale(1.1); background: rgba(255, 255, 255, 0.2); }
+        .action-fab:active { transform: scale(0.9); }
+
+        /* Estilos específicos para Notificaciones */
+        .notification-bell .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #E53935;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #0B1120;
+        }
+        .notification-bell.has-unread {
+            animation: ringBell 2s ease infinite;
+        }
+
+        @keyframes ringBell {
+            0% { transform: rotate(0); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-15deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(0); }
+            100% { transform: rotate(0); }
+        }
+
+        /* Dropdown de Notificaciones Premium */
+        @keyframes dropInPremium {
+            0% { opacity: 0; transform: translate(-50%, -20px) scale(0.95); filter: blur(10px); }
+            100% { opacity: 1; transform: translate(-50%, 0) scale(1); filter: blur(0); }
+        }
+
+        .notifications-dropdown {
+            position: fixed;
+            top: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 380px;
+            background: rgba(13, 17, 28, 0.7);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4), 
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+                0 15px 25px rgba(59, 130, 246, 0.1);
+            padding: 0;
+            z-index: 10000;
+            max-height: 480px;
+            overflow-y: auto;
+            backdrop-filter: blur(30px) saturate(200%);
+            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            transform-origin: top center;
+        }
+
+        .notifications-dropdown.show {
+            display: block !important;
+            animation: dropInPremium 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .notifications-dropdown::-webkit-scrollbar {
+            width: 4px;
+        }
+        .notifications-dropdown::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 20px 0;
+        }
+        .notifications-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .notifications-dropdown::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .notifications-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            background: rgba(13, 17, 28, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notifications-header h3 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .notifications-header h3 i {
+            color: #ffffff;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .notifications-list {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notification-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; right: 0; bottom: 0;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.5s ease;
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.3),
+                0 0 0 1px rgba(96, 165, 250, 0.2) inset;
+        }
+        
+        .notification-item:hover::before {
+            left: 200%;
+        }
+
+        /* Estilo para cuando un juego estó activo */
+        body.game-active .game-menu-fab,
+        body.pacman-active .game-menu-fab {
+            background-color: #dc3545 !important; /* Rojo para cerrar */
+        }
+        
+        body.game-active .game-menu-fab i,
+        body.pacman-active .game-menu-fab i {
+            content: "";
+        }
+        body.game-active .game-menu-fab i::before,
+        body.pacman-active .game-menu-fab i::before {
+            content: "\f00d"; /* fa-times */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+        }
+
+        /* Modal de Menó de Juegos (Glassmorphism) */
+        #games-menu-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 10005;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #games-menu-modal.active { opacity: 1; display: flex; }
+        
+        .games-menu-content {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: white;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        #games-menu-modal.active .games-menu-content { transform: translateY(0); }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .game-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .game-card i { font-size: 30px; margin-bottom: 5px; }
+        .game-card img { width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; }
+        .game-card.flappy i { color: #f1c40f; }
+        .game-card.pacman i { color: #f1c40f; }
+        .game-card span { font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.9rem; }
+
+        .close-menu-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .close-menu-btn:hover { opacity: 1; }
+
+        /* Estilos responsivos del juego Flappy Bird */
+        #chrome-dino-wrapper {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: rgba(0, 0, 0, 0.78) !important;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10005 !important;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+        }
+
+        body.game-active #chrome-dino-wrapper {
+            display: flex !important;
+        }
+
+        .flappy-close-btn {
+            color: #fff;
+            z-index: 10006;
+            cursor: pointer;
+            background: #dc3545;
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .flappy-close-btn:hover {
+            transform: scale(1.1);
+            background: #c82333;
+        }
+
+        .flappy-game-container {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            max-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #70c5ce;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.75);
+            overflow: hidden;
+        }
+
+        #chrome-dino-wrapper canvas#bird {
+            display: block !important;
+            width: auto !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100vh !important;
+            aspect-ratio: 320 / 480;
+            object-fit: contain;
+            cursor: pointer;
+            touch-action: none;
+            border: none !important;
+        }
+    </style>
+    <!-- Estilos para Puntuaciones de Flappy Bird -->
+
+    <!-- Fuente para Flappy Bird -->
+    <link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+     <!-- OneSignal SDK para Notificaciones Push (Web) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script src="js/onesignal-web.js?v=20260503a" defer></script>
+    <script src="js/web-permissions.js?v=20260503a" defer></script>
+    <script src="js/onesignal-diagnostics.js?v=20260503a" defer></script>
+  <script type="module" crossorigin src="./assets/main-DjFQ6l8t.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-L1SRGaFN.css">
+  <link rel="stylesheet" crossorigin href="./assets/style-BWoiTZ7I.css">
+  <link rel="stylesheet" crossorigin href="./assets/sidebar-BevtdpfD.css">
+  <link rel="stylesheet" crossorigin href="./assets/global-nav-CcnCCye4.css">
+<link rel="stylesheet" href="css/nav-accesible.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar" class="static-layout index-nav-transparent page-index">
+    <!-- Pantalla de Carga Animada (Splash Screen) -->
+    <div id="app-splash-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;">
+        <div class="splash-logo-container" style="position: relative; display: flex; align-items: center; justify-content: center;">
+            <!-- Círculo de brillo pulsante sutil para resaltar el logo en fondo negro -->
+            <div class="splash-glow" style="position: absolute; width: 250px; height: 250px; background: rgba(0, 74, 153, 0.3); border-radius: 50%; filter: blur(50px); opacity: 0; transform: scale(0.5);"></div>
+            
+            <img src="img/logo/logo.svg" alt="UBICATEC Logo" id="splash-logo" style="width: 220px; height: auto; opacity: 0; transform: scale(0.5); filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); position: relative; z-index: 2;">
+        </div>
+        
+        <style>
+            @keyframes logo-impact {
+                0% { opacity: 0; transform: scale(0.2); filter: blur(15px); }
+                50% { opacity: 1; transform: scale(1.05); filter: blur(0px); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+            @keyframes glow-pulse {
+                0% { opacity: 0.3; transform: scale(0.8); }
+                50% { opacity: 0.6; transform: scale(1.1); }
+                100% { opacity: 0.3; transform: scale(0.8); }
+            }
+            .animate-logo-impact { animation: logo-impact 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+            .animate-glow { animation: glow-pulse 3s ease-in-out infinite; }
+        </style>
+    </div>
+
+    <!-- Overlay de Carga PWA (Offline) -->
+    <div id="pwa-install-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,74,153,0.95); z-index: 9999; color: white; flex-direction: column; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif;">
+        <img src="img/navbar.svg" alt="Logo" style="height: 50px; margin-bottom: 20px;">
+        <h3>Preparando UBICATEC 2.0</h3>
+        <p>Descargando recursos para uso offline...</p>
+        <div style="width: 250px; height: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; overflow: hidden; margin-top: 10px;">
+            <div id="pwa-progress-bar" style="width: 0%; height: 100%; background: white; transition: width 0.3s ease;"></div>
+        </div>
+        <p id="pwa-progress-text" style="margin-top: 10px; font-size: 0.9em;">0%</p>
+    </div>
+
+    <!-- MessageBox Personalizado (Glassmorphism) -->
+    <div id="exit-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 10001; align-items: center; justify-content: center; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);">
+        <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; padding: 30px; width: 85%; max-width: 320px; text-align: center; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); color: white; font-family: 'Poppins', sans-serif;">
+            <h3 style="margin-bottom: 15px; font-weight: 600;">¿Ya te vas?</h3>
+            <p style="margin-bottom: 25px; font-size: 0.95rem; opacity: 0.9;">¿Estás seguro de que quieres salir de UBICATEC?</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="exit-no" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 25px; border-radius: 12px; cursor: pointer; font-weight: 500; flex: 1;">No</button>
+                <button id="exit-yes" style="background: #ffffff; border: none; color: #004a99; padding: 10px 25px; border-radius: 12px; cursor: pointer; font-weight: 600; flex: 1; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">Sí, salir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Anuncio eliminado -->
+
+    <!-- =========================================
+         SIDEBAR NAVEGACIÓN (Tablet & Desktop)
+         Oculta en móvil. Reemplaza la navbar Bootstrap en ≥769px.
+         ========================================= -->
+    <aside id="sidebar-nav" aria-label="Navegación principal">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-wrap">
+                <a href="index.html" aria-label="Ubicatec - Inicio">
+                    <img src="img/navbar.svg" alt="UBICATEC logo">
+                </a>
+            </div>
+            <button id="sidebar-toggle" aria-label="Colapsar menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html" class="sidebar-item active" data-tooltip="Inicio">
+                <div class="sidebar-icon"><i class="lnr lnr-home"></i></div>
+                <span class="sidebar-label">Inicio</span>
+            </a>
+            <a href="aula.html" class="sidebar-item" data-tooltip="Ubica tu Edificio">
+                <div class="sidebar-icon"><i class="lnr lnr-map-marker"></i></div>
+                <span class="sidebar-label">Ubica tu Edificio</span>
+            </a>
+            <a href="rs.html" class="sidebar-item" data-tooltip="Redes Sociales">
+                <div class="sidebar-icon"><i class="lnr lnr-bullhorn"></i></div>
+                <span class="sidebar-label">Redes Sociales</span>
+            </a>
+            <a href="equipo.html" class="sidebar-item" data-tooltip="Equipo">
+                <div class="sidebar-icon"><i class="lnr lnr-users"></i></div>
+                <span class="sidebar-label">Equipo</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- =========================================
+         BARRA DE NAVEGACIóN SUPERIOR (DESKTOP)
+         Mantenida para compatibilidad; se oculta en ≥769px via sidebar.css
+         ========================================= -->
+    <nav id="header-navbar" class="navbar navbar-expand-lg py-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center text-white" href="index.html">
+                <img src="img/navbar.svg" alt="UBICATEC logo" style="height: 25px;"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="lnr lnr-menu"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-nav-header">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="lnr lnr-home"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aula.html">
+                            <i class="lnr lnr-map-marker"></i> Ubica tu Edificio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rs.html">
+                            <i class="lnr lnr-bullhorn"></i> Redes Sociales
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="equipo.html">
+                            <i class="lnr lnr-users"></i> Equipo de desarrollo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- =========================================
+         HERO SECTION (SECCIóN PRINCIPAL)
+         ========================================= -->
+    <div class="hero-scroll-container" id="heroScrollContainer">
+        <div class="video-bienvenida-container">
+            <div class="overlay2"></div>
+            
+            <div class="hero-content-wrapper">
+                <!-- Slide 1: Logo de Bienvenida -->
+                <div class="hero-slide" id="slide-logo">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 text-center">
+    <div class="logo-bienvenida">
+        <img src="img/logo/logo.svg" alt="Logo de Bienvenida">
+    </div>
+    
+
+    
+    </div>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+                <!-- Slide 2: Contenido Informativo eliminado -->
+
+            
+            <!-- Indicador de scroll eliminado -->
+    </div>
+    </div>
+</div>
+
+    <!-- =========================================
+         COMPONENTES DE UI FLOTANTES
+         ========================================= -->
+
+    <!-- Contenedor de Botones Superiores (Notificaciones y Juegos) -->
+    <div class="top-action-buttons-left">
+        <div id="settings-btn" class="action-fab settings-fab" role="button" tabindex="0" aria-label="Ajustes">
+            <i class="fas fa-cog"></i>
+        </div>
+    </div>
+    <div class="top-action-buttons">
+        <!-- Botón de Notificaciones (Campana) -->
+        <div style="position: relative;">
+            <div id="notification-bell-btn" class="action-fab notification-bell">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge" style="display: none;">1</span>
+            </div>
+            
+            <!-- Dropdown de Notificaciones -->
+            <div id="notifications-dropdown" class="notifications-dropdown" style="display: none;"></div>
+        </div>
+        
+        <!-- Botón Unificado de Juegos -->
+        <div id="game-menu-btn" class="action-fab game-menu-fab" onclick="toggleGamesMenu()">
+            <i class="fas fa-gamepad"></i>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="ubicatec-modal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+        <div class="ubicatec-modal-dialog">
+            <button type="button" class="ubicatec-modal-close" id="settingsModalClose" aria-label="Cerrar">&times;</button>
+            <div class="ubicatec-modal-badge">AJUSTES</div>
+            <h2 class="ubicatec-modal-title" id="settingsModalTitle">Permisos</h2>
+            <div class="ubicatec-modal-body">
+                <div style="display:flex; flex-direction:column; gap:14px;">
+                    <div style="padding:12px; border:1px solid rgba(255,255,255,0.08); border-radius:14px; background: rgba(255,255,255,0.04);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                            <div style="font-weight:700;">Ubicación</div>
+                            <div id="settingsGeoStatus" style="color: rgba(255,255,255,0.78); font-size: 13px;">ó</div>
+                        </div>
+                        <div style="margin-top:10px; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+                            <button id="settingsGeoRequest" type="button" class="btn btn-primary">Solicitar</button>
+                        </div>
+                    </div>
+
+                    <div style="padding:12px; border:1px solid rgba(255,255,255,0.08); border-radius:14px; background: rgba(255,255,255,0.04);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                            <div style="font-weight:700;">Notificaciones</div>
+                            <div id="settingsNotifStatus" style="color: rgba(255,255,255,0.78); font-size: 13px;">ó</div>
+                        </div>
+                        <div style="margin-top:10px; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+                            <button id="settingsNotifRequest" type="button" class="btn btn-primary">Solicitar</button>
+                        </div>
+                    </div>
+
+                    <div id="settingsA2HSCard" style="display:none; padding:12px; border:1px solid rgba(255,255,255,0.08); border-radius:14px; background: rgba(255,255,255,0.04);">
+                        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                            <div style="font-weight:700;">Agregar a pantalla de inicio</div>
+                            <div id="settingsA2HSStatus" style="color: rgba(255,255,255,0.78); font-size: 13px;">ó</div>
+                        </div>
+                        <div style="margin-top:10px; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+                            <button id="settingsA2HSOpen" type="button" class="btn btn-secondary">Ver pasos</button>
+                        </div>
+                    </div>
+
+                    <div style="padding:12px; border:1px solid rgba(255,255,255,0.08); border-radius:14px; background: rgba(255,255,255,0.04);">
+                        <div style="font-weight:700;">Ajustes del sistema</div>
+                        <div style="margin-top:8px; color: rgba(255,255,255,0.78); font-size: 13px;">
+                            Si un permiso ya fue denegado, puede requerir habilitarse desde Ajustes del dispositivo.
+                        </div>
+                        <div style="margin-top:10px; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+                            <button id="settingsOpenSystem" type="button" class="btn btn-secondary">Abrir ajustes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ubicatec-modal-actions">
+                <button type="button" class="btn btn-secondary" id="settingsModalOk">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="a2hsModal" class="ubicatec-modal" role="dialog" aria-modal="true" aria-labelledby="a2hsModalTitle">
+        <div class="ubicatec-modal-dialog">
+            <button type="button" class="ubicatec-modal-close" id="a2hsModalClose" aria-label="Cerrar">&times;</button>
+            <div class="ubicatec-modal-badge">SAFARI</div>
+            <h2 class="ubicatec-modal-title" id="a2hsModalTitle">Agregar a pantalla de inicio</h2>
+            <div class="ubicatec-modal-body">
+                <div style="color: rgba(255,255,255,0.84); font-size: 14px; line-height: 1.45;">
+                    <div style="margin-bottom:10px;">En iPhone/iPad, las notificaciones web solo están disponibles si instalas la app como PWA.</div>
+                    <ol style="margin:0; padding-left:18px; display:flex; flex-direction:column; gap:8px;">
+                        <li>Abre esta página en Safari.</li>
+                        <li>Toca el botón Compartir (cuadro con flecha hacia arriba).</li>
+                        <li>Selecciona «Agregar a pantalla de inicio».</li>
+                        <li>Confirma con «Agregar».</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ubicatec-modal-actions">
+                <button type="button" class="btn btn-secondary" id="a2hsModalOk">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor de Anuncios tipo Banner (Oculto, reemplazado por la campana) -->
+    <div class="top-banner-container" id="capsuleContainer" style="display: none;"></div>
+
+    <!-- Contenedor de Notificaciones (Toasts) -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Modal Menó de Juegos -->
+    <div id="games-menu-modal">
+        <div class="games-menu-content">
+            <div class="close-menu-btn" onclick="toggleGamesMenu()">
+                <i class="fas fa-times"></i>
+            </div>
+            <h3 style="font-family: 'Poppins', sans-serif; font-weight: 600;">Zona de Juegos</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Selecciona un juego para empezar</p>
+            
+            <div class="games-grid">
+                <div class="game-card flappy" onclick="launchGame('flappy')">
+                    <i class="flappy-icon"></i>
+                    <span>Flappy Bird</span>
+                </div>
+                <div class="game-card pacman" onclick="launchGame('pacman')">
+                    <img src="img/pacman/icon.png" alt="Pacman Icon">
+                    <span>Pacman</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor del Juego Flappy Bird -->
+    <div id="chrome-dino-wrapper">
+        <div class="flappy-close-btn" onclick="toggleDinoGame()" title="Cerrar Flappy Bird">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="flappy-game-container">
+            <canvas id="bird" width="320" height="480"></canvas>
+        </div>
+    </div>
+
+    <!-- Contenedor del Juego Pacman -->
+    <div id="pacman-wrapper">
+        <div class="pacman-close-btn" onclick="togglePacmanGame()">
+            <i class="fas fa-times"></i>
+        </div>
+        <iframe id="pacman-iframe" src="about:blank"></iframe>
+    </div>
+
+    <!-- UI para Rócords de Flappy Bird -->
+    <div id="new-record-modal">
+        <div class="record-content">
+            <h2>óNUEVO RóCORD!</h2>
+            <p>Puntuación: <span id="record-score-display">0</span></p>
+            <input type="text" id="player-name-input" placeholder="Tu Nombre..." maxlength="12">
+            <button id="save-score-btn">GUARDAR</button>
+        </div>
+    </div>
+
+    <div id="flappy-scoreboard-container">
+        <h2>Mejores Puntajes</h2>
+        <div class="scoreboard-list" id="scoreboard-list">
+            <!-- Los puntajes se cargarón aquó dinómicamente -->
+        </div>
+        <button onclick="document.getElementById('flappy-scoreboard-container').style.display='none'" 
+                style="background:#70c5ce; color:white; border:none; padding:8px 20px; border-radius:10px; font-family:'Teko'; font-size:20px; cursor:pointer;">
+            CERRAR
+        </button>
+    </div>
+
+    <!-- Barra de Navegación Flotante (Mobile) -->
+    <div class="floating-mobile-nav" id="floatingMobileNav">
+        <div class="nav-container">
+            <div class="nav-scroll">
+                <a href="index.html" class="nav-item active" id="navHome">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-home"></i>
+                    </div>
+                    <span class="nav-label">Inicio</span>
+                </a>
+                <a href="aula.html" class="nav-item" id="navAula">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-map-marker"></i>
+                    </div>
+                    <span class="nav-label">Ubica</span>
+                </a>
+                <a href="rs.html" class="nav-item" id="navNoticias">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-bullhorn"></i>
+                    </div>
+                    <span class="nav-label">Redes Sociales</span>
+                </a>
+                <a href="equipo.html" class="nav-item" id="navEquipo">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-users"></i>
+                    </div>
+                    <span class="nav-label">Equipo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         SCRIPTS
+         ========================================= -->
+    <!-- jQuery debe cargar PRIMERO sin defer -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <!-- Dependencias de UI -->
+    <script defer src="vendor/bootstrap/popper.min.js"></script>
+    <script defer src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+    <!-- Librería para Smooth Scroll -->
+    <script defer src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    
+    <script>
+        window.UBICATEC_ADMIN_FIREBASE_CONFIG = window.UBICATEC_ADMIN_FIREBASE_CONFIG || {
+            apiKey: "AIzaSyD-0L3HUzcnuTgUGvAkxUqQ-c4kMYtRI8s",
+            authDomain: "ubicatec-admin.firebaseapp.com",
+            projectId: "ubicatec-admin",
+            appId: "1:860643879745:web:a70278f41a43bbe4070fc0"
+        };
+    </script>
+
+
+    <!-- Lógica de la Aplicación -->
+    <script defer src="js/utils.js"></script>
+    <script defer src="js/global-nav.js"></script>
+    <script defer src="js/metrics-legacy.js?v=20260729_atomic2"></script>
+    <script defer src="js/index.js?v=20260411f"></script>
+
+    <!-- Capacitor Native Support -->
+    <script>
+        // Lógica para el botón "Atrás" de Android y MessageBox Personalizado
+        document.addEventListener('deviceready', () => {
+            const { App } = window.Capacitor.Plugins;
+            const exitModal = document.getElementById('exit-modal');
+            const btnYes = document.getElementById('exit-yes');
+            const btnNo = document.getElementById('exit-no');
+
+            if (App) {
+                App.addListener('backButton', ({ canGoBack }) => {
+                    // Si estamos en el inicio, mostrar modal de cristal
+                    if (!canGoBack || window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+                        if (exitModal) {
+                            exitModal.style.display = 'flex';
+                        }
+                    } else {
+                        window.history.back();
+                    }
+                });
+
+                // Configurar botones del modal
+                if (btnYes) {
+                    btnYes.onclick = () => App.exitApp();
+                }
+                if (btnNo) {
+                    btnNo.onclick = () => {
+                        exitModal.style.display = 'none';
+                    };
+                }
+            }
+        }, false);
+
+        // Lógica de la Pantalla de Carga (Splash Screen) - Logo Central sobre Negro
+        // Se ejecuta de forma independiente para evitar bloqueos
+        (function() {
+            function initSplash() {
+                const splash = document.getElementById('app-splash-screen');
+                const logo = document.getElementById('splash-logo');
+                const glow = document.querySelector('.splash-glow');
+                const gameBtn = document.getElementById('game-menu-btn');
+                
+                if (!splash) return;
+
+                const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
+                if (hasSeenSplash) {
+                    splash.style.display = 'none';
+                    if (gameBtn) gameBtn.style.display = 'flex';
+                    return;
+                }
+
+                if (logo) logo.classList.add('animate-logo-impact');
+                if (glow) glow.classList.add('animate-glow');
+                
+                sessionStorage.setItem('hasSeenSplash', 'true');
+
+                let dismissed = false;
+                function hideSplash() {
+                    if (dismissed) return;
+                    dismissed = true;
+                    splash.style.pointerEvents = 'none';
+                    splash.style.opacity = '0';
+                    setTimeout(() => {
+                        splash.style.visibility = 'hidden';
+                        splash.style.display = 'none';
+                        if (gameBtn) {
+                            gameBtn.style.display = 'flex';
+                        }
+                    }, 600);
+                }
+
+                // Permitir cerrar al tocar la pantalla
+                splash.addEventListener('click', hideSplash);
+
+                // Disparar tras carga completa
+                if (document.readyState === 'complete') {
+                    setTimeout(hideSplash, 1500);
+                } else {
+                    window.addEventListener('load', () => {
+                        setTimeout(hideSplash, 1500);
+                    });
+                }
+
+                // Failsafe timer: garantiza que siempre se oculta tras 2.2s
+                setTimeout(hideSplash, 2200);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSplash);
+            } else {
+                initSplash();
+            }
+        })();
+    </script>
+    
+    <!-- Script del Juego Flappy Bird (Module) -->
+    <script type="module" src="js/flappy-game/script.js"></script>
+
+    
+    <script>
+        // Registro del Service Worker para soporte PWA y Offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(registration => {
+                    console.log('Service Worker registrado con óxito:', registration.scope);
+                }).catch(error => {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
+            });
+
+            // Escuchar mensajes de progreso del SW
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data && event.data.type === 'CACHE_PROGRESS') {
+                    const overlay = document.getElementById('pwa-install-overlay');
+                    const progressBar = document.getElementById('pwa-progress-bar');
+                    const progressText = document.getElementById('pwa-progress-text');
+                    
+                    if (overlay && progressBar && progressText) {
+                        overlay.style.display = 'flex';
+                        progressBar.style.width = event.data.progress + '%';
+                        progressText.textContent = event.data.progress + '%';
+                        
+                        // Ocultar overlay cuando llegue al 100%
+                        if (event.data.progress >= 100) {
+                            setTimeout(() => {
+                                overlay.style.opacity = '0';
+                                overlay.style.transition = 'opacity 0.5s ease';
+                                setTimeout(() => {
+                                    overlay.style.display = 'none';
+                                }, 500);
+                            }, 1000);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Función para el menú unificado de juegos
+        function toggleGamesMenu() {
+            const body = document.body;
+            
+            // Si algón juego estó activo, el botón debe actuar como cerrador
+            if (body.classList.contains('game-active')) {
+                toggleDinoGame(); // Para Flappy Bird
+                return;
+            }
+            if (body.classList.contains('pacman-active')) {
+                togglePacmanGame(); // Para Pacman
+                return;
+            }
+
+            const modal = document.getElementById('games-menu-modal');
+            if (modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            } else {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        }
+
+        function launchGame(gameType) {
+            toggleGamesMenu(); // Cerrar menú
+            if (gameType === 'flappy') {
+                toggleDinoGame();
+            } else if (gameType === 'pacman') {
+                togglePacmanGame();
+            }
+        }
+
+        // Función Global para Flappy Bird
+        function toggleDinoGame() {
+            const body = document.body;
+            const isGameActive = body.classList.contains('game-active');
+            const wrapper = document.getElementById('chrome-dino-wrapper');
+            
+            if (isGameActive) {
+                body.classList.remove('game-active');
+                if (wrapper) wrapper.style.display = 'none';
+                if (window.flappyResetGame) {
+                    window.flappyResetGame();
+                }
+            } else {
+                body.classList.add('game-active');
+                if (wrapper) wrapper.style.display = 'flex';
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 60);
+            }
+        }
+        window.toggleDinoGame = toggleDinoGame;
+
+        // Función para el juego de Pacman
+        function togglePacmanGame() {
+            const wrapper = document.getElementById('pacman-wrapper');
+            const iframe = document.getElementById('pacman-iframe');
+            const body = document.body;
+            
+            if (wrapper.style.display === 'flex') {
+                wrapper.style.display = 'none';
+                iframe.src = 'about:blank';
+                body.classList.remove('pacman-active');
+            } else {
+                wrapper.style.display = 'flex';
+                iframe.src = 'games/pacman/index.html';
+                body.classList.add('pacman-active');
+            }
+        }
+    </script>
+
+    <!-- Notification bell click helper: requests permission on user gesture -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bell = document.getElementById('notification-bell-btn');
+            if (!bell) return;
+
+            bell.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    if (typeof window.requestUbicatecWebPushPermission === 'function') {
+                        const res = await window.requestUbicatecWebPushPermission();
+                        console.log('[UBICATEC] Resultado requestUbicatecWebPushPermission:', res);
+                        if (res === 'granted' || res === true) {
+                            alert('Notificaciones activadas. Gracias.');
+                        } else if (res === 'denied') {
+                            alert('Notificaciones denegadas. Puedes habilitarlas en la configuración del navegador.');
+                        } else {
+                            alert('Estado de permiso: ' + res + '. Si no aparece el diálogo, revisa los permisos del sitio.');
+                        }
+                        return;
+                    }
+
+                    const res = await Notification.requestPermission();
+                    console.log('[UBICATEC] Resultado Notification.requestPermission:', res);
+                    if (res === 'granted') alert('Notificaciones activadas. Gracias.');
+                    else if (res === 'denied') alert('Notificaciones denegadas. Puedes habilitarlas en la configuración del navegador.');
+                    else alert('Estado de permiso: ' + res);
+                } catch (err) {
+                    console.error('[UBICATEC] Error al solicitar permiso de notificaciones:', err);
+                    alert('Error al solicitar permiso de notificaciones. Revisa la consola para más detalles.');
+                }
+            });
+        });
+    </script>
+
+    <!-- =========================================
+         SIDEBAR TOGGLE SCRIPT
+         Gestiona colapso/expansión y persiste en localStorage.
+         --sb-w en body controla el offset del hero via CSS var.
+         ========================================= -->
+    <script>
+    (function () {
+        var SB_FULL = '240px';
+        var SB_MINI = '64px';
+        var KEY     = 'ub-sb-mini';
+        var AUTO_COLLAPSE_MS = 7000; // 7 segundos
+
+        var sidebar = document.getElementById('sidebar-nav');
+        var toggle  = document.getElementById('sidebar-toggle');
+        if (!sidebar || !toggle) return;
+
+        var autoCollapseTimer = null;
+
+        function isMobile()  { return window.innerWidth <= 768; }
+        function isTablet()  { return window.innerWidth >= 769 && window.innerWidth < 1024; }
+        function isExpanded(){ return !sidebar.classList.contains('sb-mini'); }
+
+        /**
+         * Aplica el estado mini/expandida.
+         * @param {boolean} mini
+         * @param {boolean} [animate=true] - false desactiva transición (carga inicial)
+         */
+        function applyState(mini, animate) {
+            if (animate === false) {
+                sidebar.style.transition = 'none';
+                var hero = document.querySelector('.hero-scroll-container');
+                if (hero) hero.style.transition = 'none';
+                var leftBtn = document.querySelector('.top-action-buttons-left');
+                if (leftBtn) leftBtn.style.transition = 'none';
+            }
+
+            if (mini) {
+                sidebar.classList.add('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_MINI);
+            } else {
+                sidebar.classList.remove('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_FULL);
+            }
+
+            if (animate === false) {
+                // Re-habilitar transiciones tras un frame
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        sidebar.style.transition = '';
+                        var hero = document.querySelector('.hero-scroll-container');
+                        if (hero) hero.style.transition = '';
+                        var leftBtn = document.querySelector('.top-action-buttons-left');
+                        if (leftBtn) leftBtn.style.transition = '';
+                    });
+                });
+            }
+        }
+
+        /* ---- Auto-colapso ---- */
+        function startAutoCollapse() {
+            clearAutoCollapse();
+            autoCollapseTimer = setTimeout(function () {
+                if (isExpanded()) {
+                    applyState(true, true);
+                    localStorage.setItem(KEY, '1');
+                }
+            }, AUTO_COLLAPSE_MS);
+        }
+
+        function clearAutoCollapse() {
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+                autoCollapseTimer = null;
+            }
+        }
+
+        // Pausar timer mientras el cursor está sobre la sidebar
+        sidebar.addEventListener('mouseenter', clearAutoCollapse);
+
+        // Reanudar timer al salir de la sidebar (solo si está expandida)
+        sidebar.addEventListener('mouseleave', function () {
+            if (isExpanded()) startAutoCollapse();
+        });
+
+        function init() {
+            if (isMobile()) return;
+            var saved = localStorage.getItem(KEY);
+            var mini;
+            if (saved !== null) {
+                mini = saved === '1';
+            } else {
+                mini = isTablet(); // tablet arranca colapsada; desktop expandida
+            }
+            applyState(mini, false); // sin animación en carga inicial
+
+            // Si arranca expandida, iniciar el timer
+            if (!mini) startAutoCollapse();
+        }
+
+        // Toggle al hacer click
+        toggle.addEventListener('click', function () {
+            var mini = !sidebar.classList.contains('sb-mini');
+            applyState(mini, true);
+            localStorage.setItem(KEY, mini ? '1' : '0');
+
+            if (!mini) {
+                // Se expandió → iniciar auto-colapso
+                startAutoCollapse();
+            } else {
+                // Se colapsó manualmente → cancelar timer
+                clearAutoCollapse();
+            }
+        });
+
+        // Re-evaluar al cambiar tamaño de ventana
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (isMobile()) {
+                    // En móvil: quitar var inline para que CSS sea el que manda
+                    document.body.style.removeProperty('--sb-w');
+                    clearAutoCollapse();
+                    return;
+                }
+                // En tablet/desktop: re-aplicar desde localStorage
+                var saved = localStorage.getItem(KEY);
+                var mini  = saved !== null ? saved === '1' : isTablet();
+                applyState(mini, false);
+            }, 120);
+        });
+
+        // Inicializar en DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+
+    <div id="modalAnuncio" class="ubicatec-modal" aria-hidden="true">
+        <div class="ubicatec-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalAnuncioTitulo">
+            <button id="cerrarAnuncio" class="ubicatec-modal-close" type="button" aria-label="Cerrar">&times;</button>
+            <div class="ubicatec-modal-badge" id="modalAnuncioBadge"></div>
+            <h3 class="ubicatec-modal-title" id="modalAnuncioTitulo"></h3>
+            <div class="ubicatec-modal-body" id="modalAnuncioMensaje"></div>
+            <div class="ubicatec-modal-actions">
+                <button id="masInformacion" class="btn btn-primary" type="button"></button>
+            </div>
+        </div>
+    </div>
+<script defer src="js/mapa-accesible.js"></script>
+<script defer src="js/modulo-rutas-voz.js"></script>
+<script defer src="js/boton-accesibilidad.js"></script>
+</body>
+</html>
+
+
+
+
+
+

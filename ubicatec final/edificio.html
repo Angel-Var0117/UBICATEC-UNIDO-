@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Android StatusBar Color -->
+    <meta name="theme-color" content="#004a99">
+    <!-- Título dinámico que se actualiza con JS -->
+    <title id="page-title">Edificio - UBICATEC</title>
+    <meta name="description" content="Información detallada del edificio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" crossorigin=""/>
+
+    <!-- Fuentes y Estilos Generales -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Work+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/linearicons/icon-font.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    
+    <!-- Estilos específicos de mapas y detalles de edificio -->
+
+    <!-- Scripts Esenciales -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <!-- A-Frame para vistas 360 -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" crossorigin href="./assets/edificio-YfSIgtXb.css">
+  <link rel="stylesheet" crossorigin href="./assets/style-BWoiTZ7I.css">
+  <link rel="stylesheet" crossorigin href="./assets/sidebar-BevtdpfD.css">
+  <link rel="stylesheet" crossorigin href="./assets/global-nav-CcnCCye4.css">
+  <link rel="stylesheet" crossorigin href="./assets/mobile-back-button-Be9haCS1.css">
+<link rel="stylesheet" href="css/nav-accesible.css">
+</head>
+
+<body data-spy="scroll" data-target="#navbar" class="static-layout has-sidebar">
+    <!-- Botón flotante para regresar en móviles -->
+    <a href="javascript:history.back()" class="mobile-back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <!-- Barra de Navegación Principal (Desktop) -->
+        <!-- =========================================
+         SIDEBAR NAVEGACIÓN (Tablet & Desktop)
+         ========================================= -->
+    <aside id="sidebar-nav" aria-label="Navegación principal">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-wrap">
+                <a href="index.html" aria-label="Ubicatec - Inicio">
+                    <img src="img/navbar.svg" alt="UBICATEC logo">
+                </a>
+            </div>
+            <button id="sidebar-toggle" aria-label="Colapsar menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html" class="sidebar-item" data-tooltip="Inicio">
+                <div class="sidebar-icon"><i class="lnr lnr-home"></i></div>
+                <span class="sidebar-label">Inicio</span>
+            </a>
+            <a href="aula.html" class="sidebar-item active" data-tooltip="Ubica tu Edificio">
+                <div class="sidebar-icon"><i class="lnr lnr-map-marker"></i></div>
+                <span class="sidebar-label">Ubica tu Edificio</span>
+            </a>
+            <a href="rs.html" class="sidebar-item" data-tooltip="Redes Sociales">
+                <div class="sidebar-icon"><i class="lnr lnr-bullhorn"></i></div>
+                <span class="sidebar-label">Redes Sociales</span>
+            </a>
+            <a href="equipo.html" class="sidebar-item" data-tooltip="Equipo">
+                <div class="sidebar-icon"><i class="lnr lnr-users"></i></div>
+                <span class="sidebar-label">Equipo</span>
+            </a>
+        </nav>
+    </aside>
+
+    <nav id="header-navbar" class="navbar navbar-expand-lg py-4">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center text-white" href="/">
+            <img src="img/navbar.svg" alt="UBICATEC logo" style="height: 25px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="lnr lnr-menu"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-nav-header">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">
+                        <i class="lnr lnr-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="aula.html">
+                        <i class="lnr lnr-map-marker"></i> Ubica tu Edificio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rs.html">
+                        <i class="lnr lnr-bullhorn"></i> Redes Sociales
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="equipo.html">
+                        <i class="lnr lnr-users"></i> Equipo de desarrollo
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <!-- Barra de navegación flotante inferior para móviles -->
+    <div class="floating-mobile-nav" id="floatingMobileNav">
+        <div class="nav-container">
+            <div class="nav-scroll">
+                <a href="index.html" class="nav-item" id="navHome">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-home"></i>
+                    </div>
+                    <span class="nav-label">Inicio</span>
+                </a>
+                <a href="aula.html" class="nav-item" id="navAula">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-map-marker"></i>
+                    </div>
+                    <span class="nav-label">Ubica</span>
+                </a>
+                <a href="rs.html" class="nav-item" id="navNoticias">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-bullhorn"></i>
+                    </div>
+                    <span class="nav-label">Redes Sociales</span>
+                </a>
+                <a href="equipo.html" class="nav-item" id="navEquipo">
+                    <div class="nav-icon">
+                        <i class="lnr lnr-users"></i>
+                    </div>
+                    <span class="nav-label">Equipo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Hero (Título dinámico del edificio) -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title" id="hero-building-name">Información del Edificio</h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenedor Principal: Aquí se inyecta la información del edificio vía JS -->
+    <div id="edificio-content">
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Cargando...</span>
+            </div>
+            <p class="mt-3">Cargando información del edificio...</p>
+        </div>
+    </div>
+
+    <!-- Modales de Interacción -->
+    
+    <!-- Modal: Solicitud de Permiso de Ubicación -->
+    <div id="avisoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <i class="lnr lnr-map-marker"></i>
+                    Ubicación
+                </h2>
+                <button class="close-button" id="cerrarAvisoBtn" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Para obtener tu ubicación actual y calcular la ruta, necesitamos acceso a tu ubicación. ¿Deseas continuar?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelarUbicacionBtn" class="btn btn-secondary">
+                    <i class="lnr lnr-cross"></i>
+                    Cancelar
+                </button>
+                <button id="continuarBtn" class="btn btn-primary">
+                    <i class="lnr lnr-checkmark-circle"></i>
+                    Continuar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Notificación de Llegada al Destino -->
+    <div id="llegadaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <i class="lnr lnr-flag"></i>
+                    ¡Has llegado!
+                </h2>
+                <button class="close-button" id="cerrarLlegadaBtn" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Has llegado a tu destino. ¡Bienvenido!</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cerrarLlegadaOkBtn" class="btn btn-primary">
+                    <i class="lnr lnr-checkmark-circle"></i>
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts Finales -->
+    <script src="vendor/bootstrap/popper.min.js" defer></script>
+    <script src="vendor/bootstrap/bootstrap.min.js" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+    <script src="js/utils.js?v=20260430a" defer></script>
+    <script src="js/global-nav.js" defer></script>
+    <script defer src="js/metrics-legacy.js?v=20260729_atomic2"></script>
+    <!-- Lógica específica de la página de edificio -->
+    <script src="js/voiceNav.js" defer></script>
+    <script src="js/edificio.js" defer></script>
+    <!-- SIDEBAR TOGGLE SCRIPT -->
+    <script>
+    (function () {
+        var SB_FULL = '240px';
+        var SB_MINI = '64px';
+        var KEY     = 'ub-sb-mini';
+        var AUTO_COLLAPSE_MS = 7000;
+
+        var sidebar = document.getElementById('sidebar-nav');
+        var toggle  = document.getElementById('sidebar-toggle');
+        if (!sidebar || !toggle) return;
+
+        var autoCollapseTimer = null;
+
+        function isMobile()  { return window.innerWidth <= 768; }
+        function isTablet()  { return window.innerWidth >= 769 && window.innerWidth < 1024; }
+        function isExpanded(){ return !sidebar.classList.contains('sb-mini'); }
+
+        function applyState(mini, animate) {
+            if (animate === false) {
+                sidebar.style.transition = 'none';
+                var hero = document.querySelector('.hero-scroll-container');
+                if (hero) hero.style.transition = 'none';
+                var leftBtn = document.querySelector('.top-action-buttons-left');
+                if (leftBtn) leftBtn.style.transition = 'none';
+            }
+
+            if (mini) {
+                sidebar.classList.add('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_MINI);
+            } else {
+                sidebar.classList.remove('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_FULL);
+            }
+
+            if (animate === false) {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        sidebar.style.transition = '';
+                        var hero = document.querySelector('.hero-scroll-container');
+                        if (hero) hero.style.transition = '';
+                        var leftBtn = document.querySelector('.top-action-buttons-left');
+                        if (leftBtn) leftBtn.style.transition = '';
+                    });
+                });
+            }
+        }
+
+        function startAutoCollapse() {
+            clearAutoCollapse();
+            autoCollapseTimer = setTimeout(function () {
+                if (isExpanded()) {
+                    applyState(true, true);
+                    localStorage.setItem(KEY, '1');
+                }
+            }, AUTO_COLLAPSE_MS);
+        }
+
+        function clearAutoCollapse() {
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+                autoCollapseTimer = null;
+            }
+        }
+
+        sidebar.addEventListener('mouseenter', clearAutoCollapse);
+        sidebar.addEventListener('mouseleave', function () {
+            if (isExpanded()) startAutoCollapse();
+        });
+
+        function init() {
+            if (isMobile()) return;
+            var saved = localStorage.getItem(KEY);
+            var mini;
+            if (saved !== null) {
+                mini = saved === '1';
+            } else {
+                mini = isTablet();
+            }
+            applyState(mini, false);
+
+            if (!mini) startAutoCollapse();
+        }
+
+        toggle.addEventListener('click', function () {
+            var mini = !sidebar.classList.contains('sb-mini');
+            applyState(mini, true);
+            localStorage.setItem(KEY, mini ? '1' : '0');
+
+            if (!mini) {
+                startAutoCollapse();
+            } else {
+                clearAutoCollapse();
+            }
+        });
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (isMobile()) {
+                    document.body.style.removeProperty('--sb-w');
+                    clearAutoCollapse();
+                    return;
+                }
+                var saved = localStorage.getItem(KEY);
+                var mini  = saved !== null ? saved === '1' : isTablet();
+                applyState(mini, false);
+            }, 120);
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+<script defer src="js/boton-accesibilidad.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<!--
+  UBICATEC - Redes Sociales
+  
+  Página centralizada para acceder a las redes sociales oficiales del Instituto
+  Tecnológico de Puebla y sus comunidades estudiantiles.
+  
+  Características:
+  - Navegación Principal y Móvil Flotante
+  - Sección Hero
+  - Pestañas de Navegación (actualmente solo Redes Sociales)
+  - Tarjetas de Enlace a Redes Sociales (Facebook, Instagram)
+-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Android StatusBar Color -->
+    <meta name="theme-color" content="#004a99">
+    <title>Redes Sociales - UBICATEC</title>
+    <meta name="description" content="Sigue las redes sociales oficiales del TecNM Campus Puebla y comunidades relacionadas.">
+    <meta name="keywords" content="Redes Sociales Tec Puebla, Instagram, Facebook, CESA, Comunidades ITP">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="canonical" href="https://ubicatec.vercel.app/rs.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdn.linearicons.com">
+    <link rel="preconnect" href="https://use.fontawesome.com">
+
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400|Work+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/linearicons/icon-font.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons-sprite.svg">
+    <script defer src="https://unpkg.com/@tabler/icons@latest/icons-sprite.js"></script>
+    <style>
+    .floating-mobile-nav{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:1030;width:95%;max-width:380px;touch-action:pan-x;-webkit-user-select:none;user-select:none}
+    .floating-mobile-nav .nav-container{background:var(--global-nav-glass-bg);border-radius:22px;display:block;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;scroll-behavior:auto;box-shadow:0 25px 50px rgba(0,0,0,.12),0 12px 25px rgba(0,0,0,.08),0 6px 12px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.1),inset 1px 0 0 rgba(255,255,255,.2),inset -1px 0 0 rgba(255,255,255,.1);backdrop-filter:blur(50px) saturate(200%) brightness(110%);-webkit-backdrop-filter:blur(50px) saturate(200%) brightness(110%);border:1px solid rgba(255,255,255,.08);position:relative;scrollbar-width:none;-ms-overflow-style:none}
+    .floating-mobile-nav .nav-container::-webkit-scrollbar{display:none}
+    .floating-mobile-nav .nav-scroll{display:flex;justify-content:flex-start;align-items:center;gap:10px;flex-wrap:nowrap;min-width:100%;width:max-content;box-sizing:border-box;padding:8px 12px;position:relative;z-index:2;scroll-snap-type:x proximity;scroll-padding:12px}
+    .floating-mobile-nav .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 12px;border-radius:18px;text-decoration:none;color:rgba(255,255,255,.95);transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;flex:0 0 auto;min-width:74px;scroll-snap-align:center;cursor:pointer;z-index:2;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+    .floating-mobile-nav .nav-item:hover{color:#fff;transform:translateY(-3px) scale(1.02);text-decoration:none;background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.02) 100%),rgba(255,255,255,.01);box-shadow:0 10px 30px rgba(0,0,0,.12),0 5px 15px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(255,255,255,.15),inset 1px 0 0 rgba(255,255,255,.2),inset -1px 0 0 rgba(255,255,255,.1);backdrop-filter:blur(15px) saturate(130%);-webkit-backdrop-filter:blur(15px) saturate(130%)}
+    .floating-mobile-nav .nav-item:active{transform:translateY(-1px) scale(.98);transition:all .1s ease;background:rgba(255,255,255,.04)}
+    .floating-mobile-nav .nav-item.active{color:#fff;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.05) 100%);box-shadow:0 4px 15px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1)}
+    .floating-mobile-nav .nav-item.active .nav-icon{transform:scale(1.1);filter:drop-shadow(0 0 8px rgba(255,255,255,.3))}
+    .floating-mobile-nav .nav-item.active .nav-label{opacity:1;font-weight:700}
+    .floating-mobile-nav .nav-icon{color:#fff!important;font-size:20px;margin-bottom:4px;transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;z-index:3}
+    .floating-mobile-nav .nav-item:hover .nav-icon{transform:scale(1.05);filter:brightness(1.2)}
+    .floating-mobile-nav .nav-label{color:#fff!important;font-size:11px;font-weight:600;text-align:center;white-space:nowrap;transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;z-index:3;text-shadow:none}
+    @media (max-width:768px){#header-navbar{display:none!important}.floating-mobile-nav{display:block!important;animation:slideInUp .6s cubic-bezier(.25,.46,.45,.94)}}
+    @media (max-width:480px){.floating-mobile-nav{width:96%;max-width:360px;bottom:18px}.floating-mobile-nav .nav-container{padding:8px 10px;border-radius:20px;backdrop-filter:blur(45px) saturate(190%) brightness(105%);-webkit-backdrop-filter:blur(45px) saturate(190%) brightness(105%)}.floating-mobile-nav .nav-scroll{padding:8px 12px;gap:10px}.floating-mobile-nav .nav-item{padding:8px 10px;min-width:70px;border-radius:16px}.floating-mobile-nav .nav-icon{font-size:17px;margin-bottom:3px}.floating-mobile-nav .nav-label{font-size:9.5px;font-weight:600}}
+    @media (max-width:375px){.floating-mobile-nav{width:97%;max-width:340px;bottom:16px}.floating-mobile-nav .nav-container{padding:6px 8px;border-radius:18px}.floating-mobile-nav .nav-scroll{padding:8px 12px;gap:10px}.floating-mobile-nav .nav-item{padding:6px 8px;min-width:66px}.floating-mobile-nav .nav-icon{font-size:15px}.floating-mobile-nav .nav-label{font-size:9px}}
+    @keyframes slideInUp{from{transform:translateX(-50%) translateY(100px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+    .rs-tab.nav-link{font-weight:700;color:#4b5563;border:none;border-radius:999px;padding:.6rem 1.1rem}
+    .rs-tab.nav-link.active{background:#004DA3;color:#fff}
+    .rs-card{border:1px solid rgba(0,77,163,.12);border-radius:18px;background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);box-shadow:0 10px 24px rgba(0,0,0,.08);transition:transform .2s ease, box-shadow .2s ease}
+    .rs-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.12)}
+    .rs-card .card-body{display:flex;flex-direction:column;height:100%}
+    .rs-icon-wrap{width:64px;height:64px;border-radius:16px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;background:rgba(0,77,163,.08);border:1px solid rgba(0,77,163,.18)}
+    .rs-chip{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;margin-bottom:.7rem}
+    .rs-chip--oficial{background:rgba(0,77,163,.12);color:#004DA3}
+    .rs-chip--comunidad{background:rgba(31,41,55,.12);color:#1f2937}
+    .rs-chip--area{background:rgba(5,150,105,.15);color:#065f46}
+    .rs-action{margin-top:auto;display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap}
+    .rs-btn{border-radius:999px;font-weight:700;padding:.45rem .95rem}
+    .rs-btn-primary{background:#004DA3;border-color:#004DA3}
+    .rs-btn-primary:hover{background:#003f86;border-color:#003f86}
+    .rs-btn-outline{border:1px solid rgba(0,77,163,.3);color:#004DA3;background:#fff}
+    .rs-btn-outline:hover{background:#ecf4ff}
+    </style>
+  <link rel="stylesheet" crossorigin href="./assets/rs-B50Hq_X_.css">
+  <link rel="stylesheet" crossorigin href="./assets/style-BWoiTZ7I.css">
+  <link rel="stylesheet" crossorigin href="./assets/sidebar-BevtdpfD.css">
+  <link rel="stylesheet" crossorigin href="./assets/global-nav-CcnCCye4.css">
+  <link rel="stylesheet" crossorigin href="./assets/mobile-back-button-Be9haCS1.css">
+<link rel="stylesheet" href="css/nav-accesible.css">
+</head>
+<body class="has-sidebar">
+    <a href="javascript:history.back()" class="mobile-back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+        <!-- =========================================
+         SIDEBAR NAVEGACIÓN (Tablet & Desktop)
+         ========================================= -->
+    <aside id="sidebar-nav" aria-label="Navegación principal">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-wrap">
+                <a href="index.html" aria-label="Ubicatec - Inicio">
+                    <img src="img/navbar.svg" alt="UBICATEC logo">
+                </a>
+            </div>
+            <button id="sidebar-toggle" aria-label="Colapsar menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="index.html" class="sidebar-item" data-tooltip="Inicio">
+                <div class="sidebar-icon"><i class="lnr lnr-home"></i></div>
+                <span class="sidebar-label">Inicio</span>
+            </a>
+            <a href="aula.html" class="sidebar-item" data-tooltip="Ubica tu Edificio">
+                <div class="sidebar-icon"><i class="lnr lnr-map-marker"></i></div>
+                <span class="sidebar-label">Ubica tu Edificio</span>
+            </a>
+            <a href="rs.html" class="sidebar-item active" data-tooltip="Redes Sociales">
+                <div class="sidebar-icon"><i class="lnr lnr-bullhorn"></i></div>
+                <span class="sidebar-label">Redes Sociales</span>
+            </a>
+            <a href="equipo.html" class="sidebar-item" data-tooltip="Equipo">
+                <div class="sidebar-icon"><i class="lnr lnr-users"></i></div>
+                <span class="sidebar-label">Equipo</span>
+            </a>
+        </nav>
+    </aside>
+
+    <nav id="header-navbar" class="navbar navbar-expand-lg py-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center text-white" href="index.html">
+                <img src="img/navbar.svg" alt="UBICATEC logo" style="height: 25px;"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-nav-header" aria-controls="navbar-nav-header" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="lnr lnr-menu"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-nav-header">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="lnr lnr-home"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aula.html">
+                            <i class="lnr lnr-map-marker"></i> Ubica tu Edificio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="rs.html">
+                            <i class="lnr lnr-bullhorn"></i> Redes Sociales
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="equipo.html">
+                            <i class="lnr lnr-users"></i> Equipo de desarrollo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 
+        Navegación Flotante Móvil
+        Barra inferior para dispositivos móviles.
+    -->
+    <div class="floating-mobile-nav" id="floatingMobileNav">
+        <div class="nav-container">
+            <div class="nav-scroll">
+                <a href="index.html" class="nav-item" id="navHome">
+                    <div class="nav-icon"><i class="lnr lnr-home"></i></div>
+                    <span class="nav-label">Inicio</span>
+                </a>
+                <a href="aula.html" class="nav-item" id="navAula">
+                    <div class="nav-icon"><i class="lnr lnr-map-marker"></i></div>
+                    <span class="nav-label">Ubica</span>
+                </a>
+                <a href="rs.html" class="nav-item active" id="navNoticias">
+                    <div class="nav-icon"><i class="lnr lnr-bullhorn"></i></div>
+                    <span class="nav-label">Redes Sociales</span>
+                </a>
+                <a href="equipo.html" class="nav-item" id="navEquipo">
+                    <div class="nav-icon"><i class="lnr lnr-users"></i></div>
+                    <span class="nav-label">Equipo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        Sección Hero
+        Encabezado con título descriptivo.
+    -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Redes Sociales</h1>
+                <p class="hero-subtitle">Sigue las cuentas oficiales y comunidades del Instituto Tecnológico de Puebla</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 
+        Sección de Redes Sociales
+        Contiene tabs para filtrar contenido (actualmente solo #social).
+        Muestra grid de tarjetas con enlaces directos.
+    -->
+    <section class="news-section">
+        <div class="container">
+            <ul class="nav nav-tabs justify-content-center mb-4 border-0" id="newsTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link rs-tab active" id="oficiales-tab" data-toggle="tab" href="#oficiales" role="tab" aria-controls="oficiales" aria-selected="true">
+                        <i class="fas fa-university mr-2"></i>Oficiales
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rs-tab" id="comunidades-tab" data-toggle="tab" href="#comunidades" role="tab" aria-controls="comunidades" aria-selected="false">
+                        <i class="fas fa-users mr-2"></i>Comunidades
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rs-tab" id="areas-tab" data-toggle="tab" href="#areas" role="tab" aria-controls="areas" aria-selected="false">
+                        <i class="fas fa-layer-group mr-2"></i>Carreras y Áreas
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="newsTabsContent">
+                <div class="tab-pane fade show active" id="oficiales" role="tabpanel" aria-labelledby="oficiales-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--oficial">Oficial</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">TecNM Campus Puebla</h5>
+                                    <p class="card-text text-muted">Página oficial del Tecnológico Nacional de México Campus Puebla.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/TECNMcampusPuebla" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="80">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--oficial">Oficial</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">Asuntos Internacionales</h5>
+                                    <p class="card-text text-muted">Facebook de Asuntos Internacionales ITPuebla.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/profile.php?id=100057148882351&rdid=JVMyuT8ZvenNv21z&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AhFQeWfhC%2F#" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="120">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--oficial">Oficial</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">Desarrollo Académico</h5>
+                                    <p class="card-text text-muted">Facebook de Desarrollo Académico ITPuebla.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/DesarrolloAcademicoItPuebla?rdid=5hwYrnXFFzvv9sWb&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16RirATwFA%2F#" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--oficial">Oficial</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">Actividades Extraescolares</h5>
+                                    <p class="card-text text-muted">Facebook de ITP Actividades Extraescolares.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/profile.php?id=100063864618184&rdid=mpQaIAj9raJ7ckA8&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F17pELZuZ8Q%2F#" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="80">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--oficial">Oficial</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">Coordinación TICs</h5>
+                                    <p class="card-text text-muted">Facebook de la Coordinación de Sistemas y Computación.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/profile.php?id=61563813410386" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="comunidades" role="tabpanel" aria-labelledby="comunidades-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--comunidad">Comunidad</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-instagram fa-2x text-danger"></i></div>
+                                    <h5 class="card-title">Instagram CESA</h5>
+                                    <p class="card-text text-muted">Eventos y actividades del Consejo Estudiantil.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.instagram.com/cesaitpuebla.2025/" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="80">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--comunidad">Comunidad</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">ITP TNMX 2</h5>
+                                    <p class="card-text text-muted">Grupo abierto de Facebook para estudiantes y egresados.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/groups/1006975290176364" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Unirme</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="areas" role="tabpanel" aria-labelledby="areas-tab">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--area">Carrera / Área</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-facebook fa-2x text-primary"></i></div>
+                                    <h5 class="card-title">Ing. Industrial</h5>
+                                    <p class="card-text text-muted">Grupo oficial de la carrera de Ingeniería Industrial.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.facebook.com/groups/121145248071674" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Unirme</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="80">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--area">Carrera / Área</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-instagram fa-2x text-danger"></i></div>
+                                    <h5 class="card-title">Ing. Mecánica</h5>
+                                    <p class="card-text text-muted">Instagram oficial de Ingeniería Mecánica.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.instagram.com/itpmec?igsh=dWxibTJnYWY1ZXNv" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="120">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--area">Carrera / Área</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-instagram fa-2x text-danger"></i></div>
+                                    <h5 class="card-title">CIDI Puebla</h5>
+                                    <p class="card-text text-muted">Centro de Idiomas del Instituto Tecnológico de Puebla.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.instagram.com/cidi_puebla?igsh=aTFvd2ExcXY5eGQ2" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--area">Carrera / Área</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-instagram fa-2x text-danger"></i></div>
+                                    <h5 class="card-title">ITP Idiomas</h5>
+                                    <p class="card-text text-muted">Instagram de ITP Idiomas.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.instagram.com/itpidiomas?igsh=Ym9yZjZwZWxmdjNt" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card rs-card h-100 text-center py-4" data-aos="fade-up" data-aos-delay="80">
+                                <div class="card-body">
+                                    <span class="rs-chip rs-chip--area">Carrera / Área</span>
+                                    <div class="rs-icon-wrap"><i class="fab fa-instagram fa-2x text-danger"></i></div>
+                                    <h5 class="card-title">Eventos TICs</h5>
+                                    <p class="card-text text-muted">Instagram de Eventos de Sistemas y Computación.</p>
+                                    <div class="rs-action">
+                                        <a href="https://www.instagram.com/eventos_sistemas_itp?igsh=OTRpZTdxaTB5NDgx" target="_blank" class="btn btn-primary rs-btn rs-btn-primary">Seguir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="vendor/bootstrap/popper.min.js"></script>
+    <script defer src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script defer src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/utils.js?v=20260430a" defer></script>
+    <script src="js/global-nav.js" defer></script>
+    <script defer src="js/metrics-legacy.js?v=20260729_atomic2"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.AOS && typeof window.AOS.init === 'function') {
+                window.AOS.init({ once: true, duration: 650 });
+            } else {
+                document.querySelectorAll('[data-aos]').forEach(function (el) {
+                    el.classList.add('aos-animate');
+                });
+            }
+
+            document.querySelectorAll('.rs-tab[data-toggle="tab"]').forEach(function (tabLink) {
+                tabLink.addEventListener('click', function (event) {
+                    if (window.jQuery && window.jQuery.fn && window.jQuery.fn.tab) return;
+
+                    event.preventDefault();
+                    var targetSelector = tabLink.getAttribute('href');
+                    var targetPane = targetSelector ? document.querySelector(targetSelector) : null;
+                    if (!targetPane) return;
+
+                    document.querySelectorAll('.rs-tab').forEach(function (item) {
+                        item.classList.remove('active');
+                        item.setAttribute('aria-selected', 'false');
+                    });
+                    document.querySelectorAll('.tab-pane').forEach(function (pane) {
+                        pane.classList.remove('show', 'active');
+                    });
+
+                    tabLink.classList.add('active');
+                    tabLink.setAttribute('aria-selected', 'true');
+                    targetPane.classList.add('show', 'active');
+                });
+            });
+        });
+    </script>
+    <script defer src="js/noticias.js"></script>
+    <!-- SIDEBAR TOGGLE SCRIPT -->
+    <script>
+    (function () {
+        var SB_FULL = '240px';
+        var SB_MINI = '64px';
+        var KEY     = 'ub-sb-mini';
+        var AUTO_COLLAPSE_MS = 7000;
+
+        var sidebar = document.getElementById('sidebar-nav');
+        var toggle  = document.getElementById('sidebar-toggle');
+        if (!sidebar || !toggle) return;
+
+        var autoCollapseTimer = null;
+
+        function isMobile()  { return window.innerWidth <= 768; }
+        function isTablet()  { return window.innerWidth >= 769 && window.innerWidth < 1024; }
+        function isExpanded(){ return !sidebar.classList.contains('sb-mini'); }
+
+        function applyState(mini, animate) {
+            if (animate === false) {
+                sidebar.style.transition = 'none';
+                var hero = document.querySelector('.hero-scroll-container');
+                if (hero) hero.style.transition = 'none';
+                var leftBtn = document.querySelector('.top-action-buttons-left');
+                if (leftBtn) leftBtn.style.transition = 'none';
+            }
+
+            if (mini) {
+                sidebar.classList.add('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_MINI);
+            } else {
+                sidebar.classList.remove('sb-mini');
+                document.body.style.setProperty('--sb-w', SB_FULL);
+            }
+
+            if (animate === false) {
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        sidebar.style.transition = '';
+                        var hero = document.querySelector('.hero-scroll-container');
+                        if (hero) hero.style.transition = '';
+                        var leftBtn = document.querySelector('.top-action-buttons-left');
+                        if (leftBtn) leftBtn.style.transition = '';
+                    });
+                });
+            }
+        }
+
+        function startAutoCollapse() {
+            clearAutoCollapse();
+            autoCollapseTimer = setTimeout(function () {
+                if (isExpanded()) {
+                    applyState(true, true);
+                    localStorage.setItem(KEY, '1');
+                }
+            }, AUTO_COLLAPSE_MS);
+        }
+
+        function clearAutoCollapse() {
+            if (autoCollapseTimer) {
+                clearTimeout(autoCollapseTimer);
+                autoCollapseTimer = null;
+            }
+        }
+
+        sidebar.addEventListener('mouseenter', clearAutoCollapse);
+        sidebar.addEventListener('mouseleave', function () {
+            if (isExpanded()) startAutoCollapse();
+        });
+
+        function init() {
+            if (isMobile()) return;
+            var saved = localStorage.getItem(KEY);
+            var mini;
+            if (saved !== null) {
+                mini = saved === '1';
+            } else {
+                mini = isTablet();
+            }
+            applyState(mini, false);
+
+            if (!mini) startAutoCollapse();
+        }
+
+        toggle.addEventListener('click', function () {
+            var mini = !sidebar.classList.contains('sb-mini');
+            applyState(mini, true);
+            localStorage.setItem(KEY, mini ? '1' : '0');
+
+            if (!mini) {
+                startAutoCollapse();
+            } else {
+                clearAutoCollapse();
+            }
+        });
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                if (isMobile()) {
+                    document.body.style.removeProperty('--sb-w');
+                    clearAutoCollapse();
+                    return;
+                }
+                var saved = localStorage.getItem(KEY);
+                var mini  = saved !== null ? saved === '1' : isTablet();
+                applyState(mini, false);
+            }, 120);
+        });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+<script defer src="js/boton-accesibilidad.js"></script>
+</body>
+</html>
+
